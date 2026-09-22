@@ -9,15 +9,29 @@ export default {
 
     // 1. API: Waitlist Email Submission & Status Check
     if (url.pathname === '/api/waitlist') {
+      const corsHeaders = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      };
+
+      if (request.method === 'OPTIONS') {
+        return new Response(null, { headers: corsHeaders });
+      }
+
       if (request.method === 'GET') {
         let subscriberCount = 0;
         let dbOk = false;
         let errMessage = null;
+        let recent = [];
 
         if (env.DB) {
           try {
-            const result = await env.DB.prepare('SELECT count(*) as count FROM subscribers').first();
-            subscriberCount = result ? result.count : 0;
+            const countResult = await env.DB.prepare('SELECT count(*) as count FROM subscribers').first();
+            subscriberCount = countResult ? countResult.count : 0;
+            const rows = await env.DB.prepare('SELECT email, created_at FROM subscribers ORDER BY id DESC LIMIT 5').all();
+            recent = rows.results || [];
             dbOk = true;
           } catch (e) {
             errMessage = e.message;
@@ -28,12 +42,14 @@ export default {
           dbConnected: !!env.DB,
           dbOk: dbOk,
           subscriberCount: subscriberCount,
+          recentSubscribers: recent,
           error: errMessage
         }), {
           status: 200,
-          headers: { 'Content-Type': 'application/json' }
+          headers: corsHeaders
         });
       }
+
 
       if (request.method === 'POST') {
         try {
