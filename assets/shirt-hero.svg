@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 680" width="100%" height="100%">
+  <defs>
+    <!-- Fabric gradient -->
+    <linearGradient id="shirtGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#243342"/>
+      <stop offset="50%" stop-color="#1E2A37"/>
+      <stop offset="100%" stop-color="#141E28"/>
+    </linearGradient>
+    <linearGradient id="creaseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.25"/>
+    </linearGradient>
+    <filter id="shirtDropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#0f172a" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background subtle glow -->
+  <circle cx="300" cy="340" r="240" fill="#F59E0B" fill-opacity="0.06"/>
+
+  <!-- T-Shirt Body Outline -->
+  <g filter="url(#shirtDropShadow)">
+    <!-- Base Shirt Shape -->
+    <path d="M 210 50 
+             C 240 75 360 75 390 50 
+             L 510 110 
+             C 525 118 535 135 528 152 
+             L 475 240 
+             C 470 248 458 252 450 246 
+             L 425 225 
+             L 435 590 
+             C 435 605 422 615 408 615 
+             L 192 615 
+             C 178 615 165 605 165 590 
+             L 175 225 
+             L 150 246 
+             C 142 252 130 248 125 240 
+             L 72 152 
+             C 65 135 75 118 90 110 
+             Z" 
+          fill="url(#shirtGrad)" stroke="#334556" stroke-width="2"/>
+
+    <!-- Collar / Neck Ribbing -->
+    <path d="M 210 50 C 240 92 360 92 390 50 C 370 70 230 70 210 50 Z" fill="#141E28" stroke="#334556" stroke-width="1.5"/>
+    <path d="M 220 54 C 245 84 355 84 380 54" fill="none" stroke="#F59E0B" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+
+    <!-- Sleeve Stitching -->
+    <line x1="125" y1="205" x2="162" y2="185" stroke="#334556" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="475" y1="205" x2="438" y2="185" stroke="#334556" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+    <!-- Subtle Fabric Crease Shadows -->
+    <path d="M 175 230 Q 210 320 190 420 Q 180 500 170 590" fill="none" stroke="url(#creaseGrad)" stroke-width="8" opacity="0.3"/>
+    <path d="M 425 230 Q 390 320 410 420 Q 420 500 430 590" fill="none" stroke="url(#creaseGrad)" stroke-width="8" opacity="0.3"/>
+    <path d="M 230 110 Q 240 180 235 240" fill="none" stroke="url(#creaseGrad)" stroke-width="6" opacity="0.2"/>
+    <path d="M 370 110 Q 360 180 365 240" fill="none" stroke="url(#creaseGrad)" stroke-width="6" opacity="0.2"/>
+  </g>
+
+  <!-- PRINTED SHIRT GRAPHIC (Screenprint Style) -->
+  <g id="shirt-graphic" transform="translate(300, 290)">
+    <!-- Badge Container with Chalkboard Aesthetic -->
+    <rect x="-140" y="-130" width="280" height="270" rx="16" fill="#111923" fill-opacity="0.45" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.7"/>
+
+    <!-- Top Label -->
+    <text x="0" y="-95" text-anchor="middle" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="700" letter-spacing="3" fill="#F59E0B">
+      DROP NO. 01 • MATH EDITION
+    </text>
+
+    <!-- Main Punchline Graphic: Cute Triangle with Sunglasses -->
+    <g transform="translate(0, -10)">
+      <!-- Triangle Base (Acute Triangle) -->
+      <polygon points="0,-50 -60,40 60,40" fill="#FBF9F5" stroke="#F59E0B" stroke-width="4" stroke-linejoin="round"/>
+      
+      <!-- Cool Sunglasses on Triangle -->
+      <path d="M -35 -10 L -6 -10 L -12 6 L -31 6 Z" fill="#16202C" rx="2"/>
+      <path d="M 6 -10 L 35 -10 L 31 6 L 12 6 Z" fill="#16202C" rx="2"/>
+      <line x1="-6" y1="-7" x2="6" y2="-7" stroke="#16202C" stroke-width="3"/>
+      <!-- Glare on glasses -->
+      <line x1="-30" y1="-6" x2="-22" y2="2" stroke="#60A5FA" stroke-width="2"/>
+      <line x1="12" y1="-6" x2="20" y2="2" stroke="#60A5FA" stroke-width="2"/>
+
+      <!-- Smirking smile -->
+      <path d="M -12 20 Q 0 30 16 18" fill="none" stroke="#16202C" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- Angle arc and degree indicator -->
+      <path d="M -42 22 A 20 20 0 0 1 -24 38" fill="none" stroke="#C2410C" stroke-width="2.5"/>
+      <text x="-48" y="32" font-family="sans-serif" font-size="11" font-weight="800" fill="#C2410C">&lt;90°</text>
+    </g>
+
+    <!-- Typography: Headline Pun -->
+    <text x="0" y="65" text-anchor="middle" font-family="'Fraunces', Georgia, serif" font-size="25" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">
+      I’M ACUTE TEACHER
+    </text>
+    
+    <!-- Sub-pun text -->
+    <text x="0" y="94" text-anchor="middle" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="600" letter-spacing="1.5" fill="#93C5FD">
+      (DON’T BE OBTUSE)
+    </text>
+
+    <!-- Small footer badge -->
+    <text x="0" y="122" text-anchor="middle" font-family="sans-serif" font-size="9.5" font-weight="500" fill="#94A3B8" letter-spacing="1">
+      ★ CERTIFIED CLASSROOM PROVEN ★
+    </text>
+  </g>
+
+  <!-- Placeholder Badge Tag on Hem -->
+  <g transform="translate(180, 575)">
+    <rect width="42" height="28" rx="3" fill="#D97706"/>
+    <text x="21" y="18" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF">SHW</text>
+  </g>
+</svg>

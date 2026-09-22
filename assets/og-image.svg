@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16202C"/>
+      <stop offset="100%" stop-color="#0F1722"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g stroke="#ffffff" stroke-opacity="0.04" stroke-width="1">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Brand Title -->
+  <text x="120" y="240" font-family="'Fraunces', Georgia, serif" font-size="76" font-weight="800" fill="#FBF9F5" letter-spacing="-1">
+    SchoolhouseWit
+  </text>
+
+  <!-- Tagline -->
+  <text x="120" y="320" font-family="'Outfit', sans-serif" font-size="34" font-weight="600" fill="#F59E0B">
+    Monthly Clever Pun Tees for Teachers
+  </text>
+
+  <text x="120" y="390" font-family="'Outfit', sans-serif" font-size="24" fill="#94A3B8">
+    Launching with math-first designs • Quality ring-spun cotton • Cancel anytime
+  </text>
+
+  <!-- Pill badge -->
+  <rect x="120" y="440" width="310" height="54" rx="27" fill="#F59E0B"/>
+  <text x="275" y="475" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="20" font-weight="700" fill="#16202C">
+    Pre-Launch Waitlist Open →
+  </text>
+</svg>

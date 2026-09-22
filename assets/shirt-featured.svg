@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 680" width="100%" height="100%">
+  <defs>
+    <!-- Forest / Chalk Green Fabric gradient -->
+    <linearGradient id="featuredShirtGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1B382B"/>
+      <stop offset="50%" stop-color="#142C21"/>
+      <stop offset="100%" stop-color="#0E2018"/>
+    </linearGradient>
+    <filter id="featuredDropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#06120b" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient backlight -->
+  <circle cx="300" cy="340" r="230" fill="#10B981" fill-opacity="0.08"/>
+
+  <!-- T-Shirt Body Outline -->
+  <g filter="url(#featuredDropShadow)">
+    <path d="M 210 50 
+             C 240 75 360 75 390 50 
+             L 510 110 
+             C 525 118 535 135 528 152 
+             L 475 240 
+             C 470 248 458 252 450 246 
+             L 425 225 
+             L 435 590 
+             C 435 605 422 615 408 615 
+             L 192 615 
+             C 178 615 165 605 165 590 
+             L 175 225 
+             L 150 246 
+             C 142 252 130 248 125 240 
+             L 72 152 
+             C 65 135 75 118 90 110 
+             Z" 
+          fill="url(#featuredShirtGrad)" stroke="#234E3C" stroke-width="2"/>
+
+    <!-- Collar -->
+    <path d="M 210 50 C 240 92 360 92 390 50 C 370 70 230 70 210 50 Z" fill="#0E2018" stroke="#234E3C" stroke-width="1.5"/>
+    <path d="M 220 54 C 245 84 355 84 380 54" fill="none" stroke="#34D399" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+
+    <!-- Sleeve Stitching -->
+    <line x1="125" y1="205" x2="162" y2="185" stroke="#234E3C" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="475" y1="205" x2="438" y2="185" stroke="#234E3C" stroke-width="1.5" stroke-dasharray="4,3"/>
+  </g>
+
+  <!-- PRINTED SHIRT GRAPHIC -->
+  <g id="featured-shirt-graphic" transform="translate(300, 295)">
+    <!-- Chalkboard Border -->
+    <rect x="-145" y="-135" width="290" height="270" rx="12" fill="#091710" fill-opacity="0.5" stroke="#34D399" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.6"/>
+
+    <text x="0" y="-95" text-anchor="middle" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" letter-spacing="3" fill="#34D399">
+      CONCEPT PREVIEW • MATH VAULT
+    </text>
+
+    <!-- Parallel Lines Illustration -->
+    <g transform="translate(0, -20)">
+      <!-- Line 1 -->
+      <line x1="-90" y1="-20" x2="90" y2="-20" stroke="#FBBF24" stroke-width="6" stroke-linecap="round"/>
+      <polygon points="90,-26 104,-20 90,-14" fill="#FBBF24"/>
+      <polygon points="-90,-26 -104,-20 -90,-14" fill="#FBBF24"/>
+
+      <!-- Line 2 -->
+      <line x1="-90" y1="18" x2="90" y2="18" stroke="#FBBF24" stroke-width="6" stroke-linecap="round"/>
+      <polygon points="90,12 104,18 90,24" fill="#FBBF24"/>
+      <polygon points="-90,12 -104,18 -90,24" fill="#FBBF24"/>
+
+      <!-- Sad little heart in between -->
+      <path d="M 0 -8 C -4 -16 -12 -12 -12 -6 C -12 2 0 10 0 10 C 0 10 12 2 12 -6 C 12 -12 4 -16 0 -8 Z" fill="#F87171" opacity="0.9"/>
+    </g>
+
+    <!-- Main Headline -->
+    <text x="0" y="55" text-anchor="middle" font-family="'Fraunces', Georgia, serif" font-size="22" font-weight="800" fill="#FBF9F5" letter-spacing="-0.3">
+      PARALLEL LINES
+    </text>
+
+    <!-- Punchline -->
+    <text x="0" y="82" text-anchor="middle" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="500" fill="#CBD5E1">
+      They have so much in common.
+    </text>
+    <text x="0" y="104" text-anchor="middle" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="700" fill="#FBBF24">
+      It’s a tragedy they’ll never meet.
+    </text>
+
+    <text x="0" y="125" text-anchor="middle" font-family="monospace" font-size="10" fill="#6EE7B7" letter-spacing="1">
+      y = mx + b₁  ||  y = mx + b₂
+    </text>
+  </g>
+
+  <!-- Hem tag -->
+  <g transform="translate(180, 575)">
+    <rect width="42" height="28" rx="3" fill="#10B981"/>
+    <text x="21" y="18" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF">SHW</text>
+  </g>
+</svg>

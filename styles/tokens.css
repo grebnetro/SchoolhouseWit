@@ -1,0 +1,113 @@
+/**
+ * ============================================================================
+ * SCHOOLHOUSEWIT — BRAND DESIGN TOKENS
+ * ============================================================================
+ * Edit this single file to customize all colors, fonts, spacing, and brand
+ * attributes across the entire website.
+ */
+
+:root {
+  /* --------------------------------------------------------------------------
+   * 1. BRAND COLORS (School-Inspired & Modern Editorial)
+   * -------------------------------------------------------------------------- */
+  /* Main Canvas & Surface Backgrounds */
+  --color-bg: #FBF9F5;               /* Warm parchment / cream */
+  --color-bg-subtle: #F3EFEA;        /* Secondary soft section background */
+  --color-surface: #FFFFFF;          /* Pure white card & container surfaces */
+  --color-surface-hover: #FAFAF9;    /* Card hover state */
+  --color-surface-dark: #16202C;     /* Deep chalkboard slate for dark cards/hero */
+  --color-surface-dark-subtle: #1F2D3D;
+
+  /* Primary Typography & Borders */
+  --color-text-main: #1E293B;        /* High-contrast academic slate text */
+  --color-text-muted: #57687C;       /* Secondary descriptive text */
+  --color-text-light: #FBF9F5;       /* Text for dark surfaces */
+  --color-text-light-muted: #94A3B8; /* Muted text for dark surfaces */
+  --color-border: #E5DFD7;           /* Warm subtle card border */
+  --color-border-dark: #2E3E50;      /* Dark surface border */
+
+  /* Accents & Brand Energy */
+  --color-accent-gold: #F59E0B;      /* No. 2 pencil golden yellow */
+  --color-accent-gold-dark: #D97706; /* Darker amber for borders and active states */
+  --color-accent-gold-light: #FEF3C7;/* Very soft amber tint for badges */
+  --color-accent-red: #C2410C;       /* Schoolhouse brick / apple red */
+  --color-accent-red-light: #FFEDD5; /* Subtle red tag background */
+  --color-accent-green: #059669;     /* Chalk green / success state */
+  --color-accent-green-light: #D1FAE5;
+
+  /* Focus & Interactive States */
+  --color-focus-ring: #D97706;
+  --color-button-primary-bg: #16202C;
+  --color-button-primary-text: #FFFFFF;
+  --color-button-primary-hover: #0F1722;
+  --color-button-accent-bg: #F59E0B;
+  --color-button-accent-text: #16202C;
+  --color-button-accent-hover: #D97706;
+
+  /* --------------------------------------------------------------------------
+   * 2. TYPOGRAPHY
+   * -------------------------------------------------------------------------- */
+  --font-serif: "Fraunces", Georgia, Cambria, "Times New Roman", serif;
+  --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Font Weights */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-black: 800;
+
+  /* Fluid Font Scale */
+  --fs-xs: 0.75rem;    /* 12px */
+  --fs-sm: 0.875rem;   /* 14px */
+  --fs-base: 1rem;     /* 16px */
+  --fs-md: 1.125rem;   /* 18px */
+  --fs-lg: 1.25rem;    /* 20px */
+  --fs-xl: 1.5rem;     /* 24px */
+  --fs-2xl: 1.875rem;  /* 30px */
+  --fs-3xl: 2.25rem;   /* 36px */
+  --fs-4xl: 3rem;      /* 48px */
+  --fs-hero: clamp(2.25rem, 5vw + 1rem, 3.75rem); /* Responsive hero display */
+
+  /* --------------------------------------------------------------------------
+   * 3. LAYOUT & SPACING
+   * -------------------------------------------------------------------------- */
+  --container-max-width: 1180px;
+  --container-padding: clamp(1rem, 3vw, 2rem);
+
+  --space-2xs: 0.25rem; /* 4px */
+  --space-xs: 0.5rem;   /* 8px */
+  --space-sm: 0.75rem;  /* 12px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+  --space-2xl: 3rem;    /* 48px */
+  --space-3xl: 4.5rem;  /* 72px */
+  --space-4xl: 6rem;    /* 96px */
+
+  /* --------------------------------------------------------------------------
+   * 4. BORDER RADIUS
+   * -------------------------------------------------------------------------- */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* --------------------------------------------------------------------------
+   * 5. ELEVATION & SHADOWS
+   * -------------------------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px 0 rgba(22, 32, 44, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(22, 32, 44, 0.08), 0 2px 4px -2px rgba(22, 32, 44, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(22, 32, 44, 0.08), 0 4px 6px -4px rgba(22, 32, 44, 0.03);
+  --shadow-xl: 0 20px 25px -5px rgba(22, 32, 44, 0.1), 0 8px 10px -6px rgba(22, 32, 44, 0.04);
+  --shadow-warm: 0 12px 28px -6px rgba(217, 119, 6, 0.15);
+
+  /* --------------------------------------------------------------------------
+   * 6. TRANSITIONS & ANIMATIONS
+   * -------------------------------------------------------------------------- */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 350ms cubic-bezier(0.16, 1, 0.3, 1);
+}
