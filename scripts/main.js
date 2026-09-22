@@ -145,49 +145,41 @@ function initWaitlistForm() {
 }
 
 /**
- * Pluggable submission handler
+ * Submission handler connected to Cloudflare D1 /api/waitlist
  * @param {string} email
  * @returns {Promise<{success: boolean, email?: string, error?: string}>}
  */
 async function submitWaitlist(email) {
-  /* ==========================================================================
-   * >>> PLUG IN YOUR REAL EMAIL / BACKEND SERVICE HERE <<<
-   * Examples:
-   *
-   * 1. CONVERTKIT / KIT:
-   * const response = await fetch('https://api.convertkit.com/v3/forms/YOUR_FORM_ID/subscribe', {
-   *   method: 'POST',
-   *   headers: { 'Content-Type': 'application/json' },
-   *   body: JSON.stringify({ api_key: 'YOUR_PUBLIC_KEY', email: email })
-   * });
-   * return { success: response.ok };
-   *
-   * 2. BUTTONDOWN:
-   * const response = await fetch('https://api.buttondown.email/v1/subscribers', {
-   *   method: 'POST',
-   *   headers: { 'Authorization': 'Token YOUR_API_TOKEN', 'Content-Type': 'application/json' },
-   *   body: JSON.stringify({ email: email, tags: ['prelaunch-waitlist'] })
-   * });
-   * return { success: response.ok };
-   *
-   * 3. CLOUDFLARE WORKER / PAGES FUNCTION (e.g. /api/subscribe):
-   * const response = await fetch('/api/subscribe', {
-   *   method: 'POST',
-   *   headers: { 'Content-Type': 'application/json' },
-   *   body: JSON.stringify({ email: email })
-   * });
-   * return { success: response.ok };
-   * ========================================================================== */
+  try {
+    const response = await fetch('/api/waitlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: email })
+    });
 
-  console.log('[SchoolhouseWit Waitlist] New submission received:', {
-    email: email,
-    timestamp: new Date().toISOString(),
-    source: 'landing_page_waitlist'
-  });
+    // If API responded (production on Cloudflare)
+    if (response.ok) {
+      const data = await response.json();
+      console.log('[SchoolhouseWit Waitlist] Successfully saved subscriber to Cloudflare D1:', data);
+      return { success: true, email: email };
+    }
 
-  // Simulate network latency (400ms) for realistic UI response
-  await new Promise((resolve) => setTimeout(resolve, 400));
+    // If local dev server without worker or server error
+    const errData = await response.json().catch(() => ({}));
+    throw new Error(errData.error || `Server responded with ${response.status}`);
+  } catch (err) {
+    // If running in local static file preview where /api/waitlist is 404/unsupported,
+    // gracefully succeed so testing remains seamless:
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      console.warn('[Local Dev Preview] /api/waitlist not found on static server. Simulated success for:', email);
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      return { success: true, email: email };
+    }
 
-  // Return success response object
-  return { success: true, email: email };
+    console.error('[SchoolhouseWit Waitlist] Submission failed:', err);
+    return { success: false, error: err.message };
+  }
 }
+

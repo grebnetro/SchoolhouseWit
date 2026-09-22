@@ -1,8 +1,17 @@
 {
+  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "schoolhousewit",
+  "main": "worker.js",
   "compatibility_date": "2024-09-23",
   "assets": {
     "directory": "./",
     "binding": "ASSETS"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "schoolhousewit-db",
+      "database_id": "schoolhousewit-db"
+    }
+  ]
 }
