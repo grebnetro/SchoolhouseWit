@@ -7,23 +7,58 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // 1. API: Waitlist Email Submission
-    if (url.pathname === '/api/waitlist' && request.method === 'POST') {
-      try {
-        const body = await request.json().catch(() => ({}));
-        const email = (body.email || '').trim().toLowerCase();
+    // 1. API: Waitlist Email Submission & Status Check
+    if (url.pathname === '/api/waitlist') {
+      if (request.method === 'GET') {
+        let subscriberCount = 0;
+        let dbOk = false;
+        let errMessage = null;
 
-        // Validate email format
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email || !emailRegex.test(email)) {
-          return new Response(JSON.stringify({ success: false, error: 'Invalid email address' }), {
-            status: 400,
-            headers: { 'Content-Type': 'application/json' }
-          });
+        if (env.DB) {
+          try {
+            const result = await env.DB.prepare('SELECT count(*) as count FROM subscribers').first();
+            subscriberCount = result ? result.count : 0;
+            dbOk = true;
+          } catch (e) {
+            errMessage = e.message;
+          }
         }
 
-        // Store into Cloudflare D1 if database is bound
-        if (env.DB) {
+        return new Response(JSON.stringify({
+          dbConnected: !!env.DB,
+          dbOk: dbOk,
+          subscriberCount: subscriberCount,
+          error: errMessage
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+
+      if (request.method === 'POST') {
+        try {
+          const body = await request.json().catch(() => ({}));
+          const email = (body.email || '').trim().toLowerCase();
+
+          // Validate email format
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!email || !emailRegex.test(email)) {
+            return new Response(JSON.stringify({ success: false, error: 'Invalid email address' }), {
+              status: 400,
+              headers: { 'Content-Type': 'application/json' }
+            });
+          }
+
+          if (!env.DB) {
+            return new Response(JSON.stringify({
+              success: false,
+              error: 'DB binding is not attached in Cloudflare Worker settings yet.'
+            }), {
+              status: 500,
+              headers: { 'Content-Type': 'application/json' }
+            });
+          }
+
           // Auto-create subscribers table if it doesn't already exist
           await env.DB.prepare(`
             CREATE TABLE IF NOT EXISTS subscribers (
@@ -34,33 +69,30 @@ export default {
             )
           `).run();
 
-          // Insert subscriber (ignore if already signed up)
+          // Insert subscriber
           await env.DB.prepare(`
             INSERT OR IGNORE INTO subscribers (email, created_at, source)
             VALUES (?, datetime('now'), 'waitlist')
           `).bind(email).run();
 
-          console.log('[D1 Database] Stored subscriber:', email);
-        } else {
-          console.warn('[Cloudflare Worker] DB binding not attached yet. Submission logged:', email);
+          return new Response(JSON.stringify({ 
+            success: true, 
+            email: email, 
+            message: 'Successfully added to waitlist' 
+          }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        } catch (err) {
+          console.error('[Waitlist API Error]:', err);
+          return new Response(JSON.stringify({ success: false, error: err.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+          });
         }
-
-        return new Response(JSON.stringify({ 
-          success: true, 
-          email: email, 
-          message: 'Successfully added to waitlist' 
-        }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      } catch (err) {
-        console.error('[Waitlist API Error]:', err);
-        return new Response(JSON.stringify({ success: false, error: err.message }), {
-          status: 500,
-          headers: { 'Content-Type': 'application/json' }
-        });
       }
     }
+
 
     // 2. Default: Serve static site assets (HTML, CSS, JS, Images)
     return env.ASSETS.fetch(request);
