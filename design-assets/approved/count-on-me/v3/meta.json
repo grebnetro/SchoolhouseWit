@@ -1,0 +1,23 @@
+{
+  "id": 1,
+  "slug": "count-on-me",
+  "pun": "Count on Me",
+  "category": "Arithmetic & fractions",
+  "version": 3,
+  "approved_at": "2026-09-23T13:47:08.414Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "14720570404be4181f5d6391331b19c61d933bafef00952b0209720a7a3ed4f3",
+    "final_svg": "4e6b575c751aa08e221e458ebdc781220fc04b040a9b7987346ee76c1705713e",
+    "master_png": "724cb7909a51bd7494a90a8f3a5294e04bf14be3ef41234d806db53b09037f01",
+    "web": "6fc5629272ccda7900eec6d26fb1764dc45f9fbbe43f827cee8b86f560dc11d1",
+    "web_2x": "2c8090fb6daf908a091ad0204e1d880ec442cea0a72df14b59fb24496fab1ed8"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "v3 revision: stacked collegiate bubble lettering lockup with navy fill and thick cream outline"
+}

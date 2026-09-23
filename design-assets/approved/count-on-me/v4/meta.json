@@ -1,0 +1,23 @@
+{
+  "id": 1,
+  "slug": "count-on-me",
+  "pun": "Count on Me",
+  "category": "Arithmetic & fractions",
+  "version": 4,
+  "approved_at": "2026-09-23T14:07:36.857Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "813ced00b225eedfca4e05dc14fbcb32e3ba0e8cb01d2d5f52fec95655a52e5f",
+    "final_svg": "efb4f4964052dc63161007354e86b1085830cdaa90092a3dba4dcdb77c589597",
+    "master_png": "a25247f22cf95dcd46d5a08ad98f6da1f81d5b6b2d22b6755f8b7e5c6c9fb8f7",
+    "web": "d03bd92d0f3f1f3ee7a87c39289a291ea64f6dd1c850bc58772c28e30a5d423e",
+    "web_2x": "1cb1b200c3858f7174981e952e702d1ae8ff019a793c5a53a783c75d9fe187bf"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "v4 revision: unified bounding group centered on canvas, optically centered Count over on Me, collegiate bubble redrawn numerals (1, 2, 3, 4, +)"
+}

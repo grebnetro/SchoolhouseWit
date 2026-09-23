@@ -21,6 +21,9 @@ function escapeHtml(str) {
 }
 
 function generatePageHtml() {
+  delete require.cache[require.resolve('./designs-data.js')];
+  const { DESIGN_CATALOG, DESIGN_CATEGORIES } = require('./designs-data.js');
+
   // Render Category Filter Buttons
   const filterChipsHtml = [
     `          <li>
@@ -48,12 +51,28 @@ function generatePageHtml() {
 
     const cardsHtml = catItems.map((item) => {
       const paddedId = String(item.id).padStart(2, '0');
-      const placeholderImgSrc = item.image || '/assets/shirt-placeholder.svg';
-      const altText = `Artwork placeholder for ${escapeHtml(item.title)} shirt concept`;
+      const isApproved = item.status === 'approved' && Boolean(item.assets?.web);
+      const imgSrc = isApproved ? `/${item.assets.web}` : (item.image || '/assets/shirt-placeholder.svg');
+      const srcsetAttr = isApproved && item.assets?.web_2x ? ` srcset="/${item.assets.web} 1x, /${item.assets.web_2x} 2x"` : '';
+      const altText = isApproved
+        ? (item.slug === 'count-on-me' ? 'Count on Me shirt artwork' : `Official artwork for ${escapeHtml(item.pun || item.title)} shirt concept`)
+        : `Artwork placeholder for ${escapeHtml(item.title)} shirt concept`;
+      const statusPill = isApproved
+        ? `<div class="artwork-status-pill artwork-status-approved">
+                  <span class="status-dot status-dot-approved"></span>
+                  <span>Approved Drop Art</span>
+                </div>`
+        : `<div class="artwork-status-pill">
+                  <span class="status-dot"></span>
+                  <span>Artwork coming soon</span>
+                </div>`;
+      const captionText = isApproved
+        ? `<span>Approved (v${item.approved_version || 1})</span><span>Math Drop</span>`
+        : `<span>Pre-Launch Concept</span><span>Math Drop</span>`;
 
       return `            <!-- Concept #${item.id} -->
             <article 
-              class="concept-card" 
+              class="concept-card${isApproved ? ' is-approved' : ''}" 
               id="concept-${item.slug}"
               data-id="${item.id}"
               data-title="${escapeHtml(item.title)}" 
@@ -62,25 +81,21 @@ function generatePageHtml() {
               <div class="card-media-slot">
                 <span class="concept-id-badge">#${paddedId}</span>
                 <img 
-                  src="${placeholderImgSrc}" 
+                  src="${imgSrc}"${srcsetAttr}
                   alt="${altText}" 
                   class="card-placeholder-img"
                   width="400" 
                   height="300"
                   loading="lazy"
                 >
-                <div class="artwork-status-pill">
-                  <span class="status-dot"></span>
-                  <span>Artwork coming soon</span>
-                </div>
+                ${statusPill}
               </div>
 
               <div class="concept-card-body">
                 <span class="concept-category-tag">${escapeHtml(item.category)}</span>
                 <h3 class="concept-title">${escapeHtml(item.title)}</h3>
                 <div class="concept-status-caption">
-                  <span>Pre-Launch Concept</span>
-                  <span>Math Drop</span>
+                  ${captionText}
                 </div>
               </div>
             </article>`;
@@ -384,12 +399,20 @@ ${categorySectionsHtml.join('\n\n')}
   return fullHtml;
 }
 
-// Ensure designs/ directory exists and write file
-const targetDir = path.join(__dirname, '..', 'designs');
-if (!fs.existsSync(targetDir)) {
-  fs.mkdirSync(targetDir, { recursive: true });
+function buildDesignsPage() {
+  const targetDir = path.join(__dirname, '..', 'designs');
+  if (!fs.existsSync(targetDir)) {
+    fs.mkdirSync(targetDir, { recursive: true });
+  }
+
+  const outputPath = path.join(targetDir, 'index.html');
+  fs.writeFileSync(outputPath, generatePageHtml(), 'utf-8');
+  console.log(`Successfully generated ${outputPath} with all 100 pre-rendered concepts!`);
+  return outputPath;
 }
 
-const outputPath = path.join(targetDir, 'index.html');
-fs.writeFileSync(outputPath, generatePageHtml(), 'utf-8');
-console.log(`Successfully generated ${outputPath} with all 100 pre-rendered concepts!`);
+module.exports = { buildDesignsPage };
+
+if (require.main === module) {
+  buildDesignsPage();
+}

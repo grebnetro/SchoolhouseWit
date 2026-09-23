@@ -2,17 +2,39 @@
  * ============================================================================
  * SCHOOLHOUSEWIT — DESIGN CATALOG DATA
  * ============================================================================
- * Pre-launch collection of 100 classroom-ready math-pun shirt concepts.
- * Organized across 10 categories.
+ * Single source of truth for all SchoolhouseWit design concepts and approved drops.
  *
  * Each design entry schema:
  * {
  *   id: number (1-100),
  *   slug: string (unique URL-safe slug),
- *   title: string (exact title),
+ *   pun: string (exact text),
  *   category: string (one of the 10 exact categories),
- *   image: string | null (null for placeholder, path when real asset exists),
- *   status: "concept"
+ *   prompt: string | null,
+ *   status: "idea" | "generating" | "in_review" | "approved" | "retired",
+ *   approved_version: number | null,
+ *   approved_at: string | null (ISO 8601),
+ *   assets: {
+ *     master_png: string | null,
+ *     final_svg: string | null,
+ *     web: string | null,
+ *     web_2x: string | null
+ *   },
+ *   sha256: {
+ *     master_png: string | null,
+ *     final_svg: string | null,
+ *     web: string | null,
+ *     web_2x: string | null
+ *   },
+ *   dimensions: {
+ *     width: number | null,
+ *     height: number | null
+ *   },
+ *   model_or_tool: string | null,
+ *   notes: string | null,
+ *   // Backwards compatibility aliases
+ *   title: string,
+ *   image: string | null
  * }
  */
 
@@ -29,127 +51,204 @@ const DESIGN_CATEGORIES = [
   "Cutesy math creatures"
 ];
 
-const DESIGN_CATALOG = [
+function createDesignEntry(id, slug, pun, category, overrides = {}) {
+  const assets = {
+    master_png: null,
+    final_svg: null,
+    web: null,
+    web_2x: null,
+    ...(overrides.assets || {})
+  };
+
+  const sha256 = {
+    master_png: null,
+    final_svg: null,
+    web: null,
+    web_2x: null,
+    ...(overrides.sha256 || {})
+  };
+
+  const dimensions = {
+    width: null,
+    height: null,
+    ...(overrides.dimensions || {})
+  };
+
+  return {
+    id,
+    slug,
+    pun,
+    category,
+    prompt: overrides.prompt || null,
+    status: overrides.status || "idea",
+    approved_version: overrides.approved_version || null,
+    approved_at: overrides.approved_at || null,
+    assets,
+    sha256,
+    dimensions,
+    model_or_tool: overrides.model_or_tool || null,
+    notes: overrides.notes || null,
+    // Backwards compatibility accessors
+    get title() { return this.pun; },
+    set title(val) { this.pun = val; },
+    get image() { return this.assets.web || null; },
+    set image(val) { this.assets.web = val; }
+  };
+}
+
+const RAW_CATALOG_RECORDS = [
   // 1. Arithmetic & fractions (1-10)
-  { id: 1, slug: "count-on-me", title: "Count on Me", category: "Arithmetic & fractions", image: null, status: "concept" },
-  { id: 2, slug: "sum-kind-of-wonderful", title: "Sum Kind of Wonderful", category: "Arithmetic & fractions", image: null, status: "concept" },
-  { id: 3, slug: "addition-is-my-plus-one", title: "Addition Is My Plus-One", category: "Arithmetic & fractions", image: null, status: "concept" },
-  { id: 4, slug: "divide-and-conquer-the-day", title: "Divide and Conquer the Day", category: "Arithmetic & fractions", image: null, status: "concept" },
-  { id: 5, slug: "multiply-the-good", title: "Multiply the Good", category: "Arithmetic & fractions", image: null, status: "concept" },
-  { id: 6, slug: "less-drama-more-decimal", title: "Less Drama, More Decimal", category: "Arithmetic & fractions", image: null, status: "concept" },
-  { id: 7, slug: "remainder-of-the-day-be-kind", title: "Remainder of the Day: Be Kind", category: "Arithmetic & fractions", image: null, status: "concept" },
-  { id: 8, slug: "operation-positive", title: "Operation: Positive", category: "Arithmetic & fractions", image: null, status: "concept" },
-  { id: 9, slug: "make-it-count", title: "Make It Count", category: "Arithmetic & fractions", image: null, status: "concept" },
-  { id: 10, slug: "fractionally-fabulous", title: "Fractionally Fabulous", category: "Arithmetic & fractions", image: null, status: "concept" },
+  [1, "count-on-me", "Count on Me", "Arithmetic & fractions"],
+  [2, "sum-kind-of-wonderful", "Sum Kind of Wonderful", "Arithmetic & fractions"],
+  [3, "addition-is-my-plus-one", "Addition Is My Plus-One", "Arithmetic & fractions"],
+  [4, "divide-and-conquer-the-day", "Divide and Conquer the Day", "Arithmetic & fractions"],
+  [5, "multiply-the-good", "Multiply the Good", "Arithmetic & fractions"],
+  [6, "less-drama-more-decimal", "Less Drama, More Decimal", "Arithmetic & fractions"],
+  [7, "remainder-of-the-day-be-kind", "Remainder of the Day: Be Kind", "Arithmetic & fractions"],
+  [8, "operation-positive", "Operation: Positive", "Arithmetic & fractions"],
+  [9, "make-it-count", "Make It Count", "Arithmetic & fractions"],
+  [10, "fractionally-fabulous", "Fractionally Fabulous", "Arithmetic & fractions"],
 
   // 2. Algebra (11-20)
-  { id: 11, slug: "find-your-why", title: "Find Your Why", category: "Algebra", image: null, status: "concept" },
-  { id: 12, slug: "x-marks-the-solution", title: "X Marks the Solution", category: "Algebra", image: null, status: "concept" },
-  { id: 13, slug: "keep-it-on-the-same-side", title: "Keep It on the Same Side", category: "Algebra", image: null, status: "concept" },
-  { id: 14, slug: "variable-by-nature", title: "Variable by Nature", category: "Algebra", image: null, status: "concept" },
-  { id: 15, slug: "solve-for-awesome", title: "Solve for Awesome", category: "Algebra", image: null, status: "concept" },
-  { id: 16, slug: "life-has-many-variables", title: "Life Has Many Variables", category: "Algebra", image: null, status: "concept" },
-  { id: 17, slug: "functioning-beautifully", title: "Functioning Beautifully", category: "Algebra", image: null, status: "concept" },
-  { id: 18, slug: "stay-balanced", title: "Stay Balanced", category: "Algebra", image: null, status: "concept" },
-  { id: 19, slug: "express-yourself-algebraically", title: "Express Yourself Algebraically", category: "Algebra", image: null, status: "concept" },
-  { id: 20, slug: "why-fear-x-its-just-a-variable", title: "Why Fear X? It's Just a Variable", category: "Algebra", image: null, status: "concept" },
+  [11, "find-your-why", "Find Your Why", "Algebra"],
+  [12, "x-marks-the-solution", "X Marks the Solution", "Algebra"],
+  [13, "keep-it-on-the-same-side", "Keep It on the Same Side", "Algebra"],
+  [14, "variable-by-nature", "Variable by Nature", "Algebra"],
+  [15, "solve-for-awesome", "Solve for Awesome", "Algebra"],
+  [16, "life-has-many-variables", "Life Has Many Variables", "Algebra"],
+  [17, "functioning-beautifully", "Functioning Beautifully", "Algebra"],
+  [18, "stay-balanced", "Stay Balanced", "Algebra"],
+  [19, "express-yourself-algebraically", "Express Yourself Algebraically", "Algebra"],
+  [20, "why-fear-x-its-just-a-variable", "Why Fear X? It's Just a Variable", "Algebra"],
 
   // 3. Geometry (21-30)
-  { id: 21, slug: "acute-teacher", title: "Acute Teacher", category: "Geometry", image: null, status: "concept" },
-  { id: 22, slug: "youre-just-my-type-of-angle", title: "You're Just My Type of Angle", category: "Geometry", image: null, status: "concept" },
-  { id: 23, slug: "dont-be-obtuse", title: "Don't Be Obtuse", category: "Geometry", image: null, status: "concept" },
-  { id: 24, slug: "right-on-the-angle", title: "Right on the Angle", category: "Geometry", image: null, status: "concept" },
-  { id: 25, slug: "the-proof-is-in-the-polygon", title: "The Proof Is in the Polygon", category: "Geometry", image: null, status: "concept" },
-  { id: 26, slug: "i-have-a-point", title: "I Have a Point", category: "Geometry", image: null, status: "concept" },
-  { id: 27, slug: "stay-in-shape", title: "Stay in Shape", category: "Geometry", image: null, status: "concept" },
-  { id: 28, slug: "lines-meet-me-halfway", title: "Lines, Meet Me Halfway", category: "Geometry", image: null, status: "concept" },
-  { id: 29, slug: "parallel-lines-have-so-much-in-common", title: "Parallel Lines Have So Much in Common", category: "Geometry", image: null, status: "concept" },
-  { id: 30, slug: "im-well-rounded", title: "I'm Well-Rounded", category: "Geometry", image: null, status: "concept" },
+  [21, "acute-teacher", "Acute Teacher", "Geometry"],
+  [22, "youre-just-my-type-of-angle", "You're Just My Type of Angle", "Geometry"],
+  [23, "dont-be-obtuse", "Don't Be Obtuse", "Geometry"],
+  [24, "right-on-the-angle", "Right on the Angle", "Geometry"],
+  [25, "the-proof-is-in-the-polygon", "The Proof Is in the Polygon", "Geometry"],
+  [26, "i-have-a-point", "I Have a Point", "Geometry"],
+  [27, "stay-in-shape", "Stay in Shape", "Geometry"],
+  [28, "lines-meet-me-halfway", "Lines, Meet Me Halfway", "Geometry"],
+  [29, "parallel-lines-have-so-much-in-common", "Parallel Lines Have So Much in Common", "Geometry"],
+  [30, "im-well-rounded", "I'm Well-Rounded", "Geometry"],
 
   // 4. Trigonometry (31-40)
-  { id: 31, slug: "sine-of-a-great-day", title: "Sine of a Great Day", category: "Trigonometry", image: null, status: "concept" },
-  { id: 32, slug: "cosine-here-often", title: "Cosine Here Often?", category: "Trigonometry", image: null, status: "concept" },
-  { id: 33, slug: "just-another-sine-day", title: "Just Another Sine-Day", category: "Trigonometry", image: null, status: "concept" },
-  { id: 34, slug: "tan-lines-are-part-of-the-equation", title: "Tan Lines Are Part of the Equation", category: "Trigonometry", image: null, status: "concept" },
-  { id: 35, slug: "sine-me-up", title: "Sine Me Up", category: "Trigonometry", image: null, status: "concept" },
-  { id: 36, slug: "good-vibes-great-sines", title: "Good Vibes, Great Sines", category: "Trigonometry", image: null, status: "concept" },
-  { id: 37, slug: "finding-my-angle", title: "Finding My Angle", category: "Trigonometry", image: null, status: "concept" },
-  { id: 38, slug: "secant-to-none", title: "Secant to None", category: "Trigonometry", image: null, status: "concept" },
-  { id: 39, slug: "trigonometry-has-its-ups-and-downs", title: "Trigonometry Has Its Ups and Downs", category: "Trigonometry", image: null, status: "concept" },
-  { id: 40, slug: "ive-got-rhythm-and-sine", title: "I've Got Rhythm and Sine", category: "Trigonometry", image: null, status: "concept" },
+  [31, "sine-of-a-great-day", "Sine of a Great Day", "Trigonometry"],
+  [32, "cosine-here-often", "Cosine Here Often?", "Trigonometry"],
+  [33, "just-another-sine-day", "Just Another Sine-Day", "Trigonometry"],
+  [34, "tan-lines-are-part-of-the-equation", "Tan Lines Are Part of the Equation", "Trigonometry"],
+  [35, "sine-me-up", "Sine Me Up", "Trigonometry"],
+  [36, "good-vibes-great-sines", "Good Vibes, Great Sines", "Trigonometry"],
+  [37, "finding-my-angle", "Finding My Angle", "Trigonometry"],
+  [38, "secant-to-none", "Secant to None", "Trigonometry"],
+  [39, "trigonometry-has-its-ups-and-downs", "Trigonometry Has Its Ups and Downs", "Trigonometry"],
+  [40, "ive-got-rhythm-and-sine", "I've Got Rhythm and Sine", "Trigonometry"],
 
   // 5. Calculus (41-50)
-  { id: 41, slug: "limitless-potential", title: "Limitless Potential", category: "Calculus", image: null, status: "concept" },
-  { id: 42, slug: "derivative-i-prefer-original", title: "Derivative? I Prefer Original", category: "Calculus", image: null, status: "concept" },
-  { id: 43, slug: "integrate-kindness", title: "Integrate Kindness", category: "Calculus", image: null, status: "concept" },
-  { id: 44, slug: "change-is-constant", title: "Change Is Constant", category: "Calculus", image: null, status: "concept" },
-  { id: 45, slug: "approach-greatness", title: "Approach Greatness", category: "Calculus", image: null, status: "concept" },
-  { id: 46, slug: "area-under-construction", title: "Area Under Construction", category: "Calculus", image: null, status: "concept" },
-  { id: 47, slug: "born-to-differentiate", title: "Born to Differentiate", category: "Calculus", image: null, status: "concept" },
-  { id: 48, slug: "find-your-inflection-point", title: "Find Your Inflection Point", category: "Calculus", image: null, status: "concept" },
-  { id: 49, slug: "no-limits-just-possibilities", title: "No Limits, Just Possibilities", category: "Calculus", image: null, status: "concept" },
-  { id: 50, slug: "calculus-its-about-time", title: "Calculus: It's About Time", category: "Calculus", image: null, status: "concept" },
+  [41, "limitless-potential", "Limitless Potential", "Calculus"],
+  [42, "derivative-i-prefer-original", "Derivative? I Prefer Original", "Calculus"],
+  [43, "integrate-kindness", "Integrate Kindness", "Calculus"],
+  [44, "change-is-constant", "Change Is Constant", "Calculus"],
+  [45, "approach-greatness", "Approach Greatness", "Calculus"],
+  [46, "area-under-construction", "Area Under Construction", "Calculus"],
+  [47, "born-to-differentiate", "Born to Differentiate", "Calculus"],
+  [48, "find-your-inflection-point", "Find Your Inflection Point", "Calculus"],
+  [49, "no-limits-just-possibilities", "No Limits, Just Possibilities", "Calculus"],
+  [50, "calculus-its-about-time", "Calculus: It's About Time", "Calculus"],
 
   // 6. Statistics & probability (51-60)
-  { id: 51, slug: "above-average", title: "Above Average", category: "Statistics & probability", image: null, status: "concept" },
-  { id: 52, slug: "statistically-significant", title: "Statistically Significant", category: "Statistics & probability", image: null, status: "concept" },
-  { id: 53, slug: "mean-what-you-say", title: "Mean What You Say", category: "Statistics & probability", image: null, status: "concept" },
-  { id: 54, slug: "mode-math", title: "Mode: Math", category: "Statistics & probability", image: null, status: "concept" },
-  { id: 55, slug: "normal-is-overrated", title: "Normal Is Overrated", category: "Statistics & probability", image: null, status: "concept" },
-  { id: 56, slug: "data-has-a-story", title: "Data Has a Story", category: "Statistics & probability", image: null, status: "concept" },
-  { id: 57, slug: "plot-twist-check-the-data", title: "Plot Twist: Check the Data", category: "Statistics & probability", image: null, status: "concept" },
-  { id: 58, slug: "spread-good-vibes", title: "Spread Good Vibes", category: "Statistics & probability", image: null, status: "concept" },
-  { id: 59, slug: "confidence-level-100", title: "Confidence Level: 100%", category: "Statistics & probability", image: null, status: "concept" },
-  { id: 60, slug: "outlier-and-proud", title: "Outlier and Proud", category: "Statistics & probability", image: null, status: "concept" },
+  [51, "above-average", "Above Average", "Statistics & probability"],
+  [52, "statistically-significant", "Statistically Significant", "Statistics & probability"],
+  [53, "mean-what-you-say", "Mean What You Say", "Statistics & probability"],
+  [54, "mode-math", "Mode: Math", "Statistics & probability"],
+  [55, "normal-is-overrated", "Normal Is Overrated", "Statistics & probability"],
+  [56, "data-has-a-story", "Data Has a Story", "Statistics & probability"],
+  [57, "plot-twist-check-the-data", "Plot Twist: Check the Data", "Statistics & probability"],
+  [58, "spread-good-vibes", "Spread Good Vibes", "Statistics & probability"],
+  [59, "confidence-level-100", "Confidence Level: 100%", "Statistics & probability"],
+  [60, "outlier-and-proud", "Outlier and Proud", "Statistics & probability"],
 
   // 7. Numbers & number theory (61-70)
-  { id: 61, slug: "prime-time-teacher", title: "Prime Time Teacher", category: "Numbers & number theory", image: null, status: "concept" },
-  { id: 62, slug: "oddly-even", title: "Oddly Even", category: "Numbers & number theory", image: null, status: "concept" },
-  { id: 63, slug: "im-in-my-prime", title: "I'm in My Prime", category: "Numbers & number theory", image: null, status: "concept" },
-  { id: 64, slug: "real-rational-remarkable", title: "Real, Rational, Remarkable", category: "Numbers & number theory", image: null, status: "concept" },
-  { id: 65, slug: "natural-number-enthusiast", title: "Natural Number Enthusiast", category: "Numbers & number theory", image: null, status: "concept" },
-  { id: 66, slug: "rooting-for-the-irrationals", title: "Rooting for the Irrationals", category: "Numbers & number theory", image: null, status: "concept" },
-  { id: 67, slug: "a-whole-lot-of-numbers", title: "A Whole Lot of Numbers", category: "Numbers & number theory", image: null, status: "concept" },
-  { id: 68, slug: "count-me-among-the-integers", title: "Count Me Among the Integers", category: "Numbers & number theory", image: null, status: "concept" },
-  { id: 69, slug: "perfectly-imperfect-number", title: "Perfectly Imperfect Number", category: "Numbers & number theory", image: null, status: "concept" },
-  { id: 70, slug: "zero-is-my-hero", title: "Zero Is My Hero", category: "Numbers & number theory", image: null, status: "concept" },
+  [61, "prime-time-teacher", "Prime Time Teacher", "Numbers & number theory"],
+  [62, "oddly-even", "Oddly Even", "Numbers & number theory"],
+  [63, "im-in-my-prime", "I'm in My Prime", "Numbers & number theory"],
+  [64, "real-rational-remarkable", "Real, Rational, Remarkable", "Numbers & number theory"],
+  [65, "natural-number-enthusiast", "Natural Number Enthusiast", "Numbers & number theory"],
+  [66, "rooting-for-the-irrationals", "Rooting for the Irrationals", "Numbers & number theory"],
+  [67, "a-whole-lot-of-numbers", "A Whole Lot of Numbers", "Numbers & number theory"],
+  [68, "count-me-among-the-integers", "Count Me Among the Integers", "Numbers & number theory"],
+  [69, "perfectly-imperfect-number", "Perfectly Imperfect Number", "Numbers & number theory"],
+  [70, "zero-is-my-hero", "Zero Is My Hero", "Numbers & number theory"],
 
   // 8. Graphs & coordinates (71-80)
-  { id: 71, slug: "plot-your-own-course", title: "Plot Your Own Course", category: "Graphs & coordinates", image: null, status: "concept" },
-  { id: 72, slug: "i-have-my-coordinates-together", title: "I Have My Coordinates Together", category: "Graphs & coordinates", image: null, status: "concept" },
-  { id: 73, slug: "slope-happens", title: "Slope Happens", category: "Graphs & coordinates", image: null, status: "concept" },
-  { id: 74, slug: "rise-to-the-occasion", title: "Rise to the Occasion", category: "Graphs & coordinates", image: null, status: "concept" },
-  { id: 75, slug: "intercepting-bright-ideas", title: "Intercepting Bright Ideas", category: "Graphs & coordinates", image: null, status: "concept" },
-  { id: 76, slug: "stay-on-the-positive-axis", title: "Stay on the Positive Axis", category: "Graphs & coordinates", image: null, status: "concept" },
-  { id: 77, slug: "this-is-where-i-draw-the-line", title: "This Is Where I Draw the Line", category: "Graphs & coordinates", image: null, status: "concept" },
-  { id: 78, slug: "graph-goals", title: "Graph Goals", category: "Graphs & coordinates", image: null, status: "concept" },
-  { id: 79, slug: "on-an-upward-curve", title: "On an Upward Curve", category: "Graphs & coordinates", image: null, status: "concept" },
-  { id: 80, slug: "origin-story", title: "Origin Story", category: "Graphs & coordinates", image: null, status: "concept" },
+  [71, "plot-your-own-course", "Plot Your Own Course", "Graphs & coordinates"],
+  [72, "i-have-my-coordinates-together", "I Have My Coordinates Together", "Graphs & coordinates"],
+  [73, "slope-happens", "Slope Happens", "Graphs & coordinates"],
+  [74, "rise-to-the-occasion", "Rise to the Occasion", "Graphs & coordinates"],
+  [75, "intercepting-bright-ideas", "Intercepting Bright Ideas", "Graphs & coordinates"],
+  [76, "stay-on-the-positive-axis", "Stay on the Positive Axis", "Graphs & coordinates"],
+  [77, "this-is-where-i-draw-the-line", "This Is Where I Draw the Line", "Graphs & coordinates"],
+  [78, "graph-goals", "Graph Goals", "Graphs & coordinates"],
+  [79, "on-an-upward-curve", "On an Upward Curve", "Graphs & coordinates"],
+  [80, "origin-story", "Origin Story", "Graphs & coordinates"],
 
   // 9. Math teacher energy (81-90)
-  { id: 81, slug: "math-teachers-have-all-the-problems", title: "Math Teachers Have All the Problems", category: "Math teacher energy", image: null, status: "concept" },
-  { id: 82, slug: "no-problem-too-negative", title: "No Problem Too Negative", category: "Math teacher energy", image: null, status: "concept" },
-  { id: 83, slug: "ask-me-y", title: "Ask Me Y", category: "Math teacher energy", image: null, status: "concept" },
-  { id: 84, slug: "my-class-is-sum-thing-special", title: "My Class Is Sum-thing Special", category: "Math teacher energy", image: null, status: "concept" },
-  { id: 85, slug: "powered-by-patterns", title: "Powered by Patterns", category: "Math teacher energy", image: null, status: "concept" },
-  { id: 86, slug: "every-day-is-a-math-day", title: "Every Day Is a Math Day", category: "Math teacher energy", image: null, status: "concept" },
-  { id: 87, slug: "teach-solve-repeat", title: "Teach, Solve, Repeat", category: "Math teacher energy", image: null, status: "concept" },
-  { id: 88, slug: "pencils-down-confidence-up", title: "Pencils Down, Confidence Up", category: "Math teacher energy", image: null, status: "concept" },
-  { id: 89, slug: "mistakes-are-data", title: "Mistakes Are Data", category: "Math teacher energy", image: null, status: "concept" },
-  { id: 90, slug: "show-your-work-share-your-wonder", title: "Show Your Work, Share Your Wonder", category: "Math teacher energy", image: null, status: "concept" },
+  [81, "math-teachers-have-all-the-problems", "Math Teachers Have All the Problems", "Math teacher energy"],
+  [82, "no-problem-too-negative", "No Problem Too Negative", "Math teacher energy"],
+  [83, "ask-me-y", "Ask Me Y", "Math teacher energy"],
+  [84, "my-class-is-sum-thing-special", "My Class Is Sum-thing Special", "Math teacher energy"],
+  [85, "powered-by-patterns", "Powered by Patterns", "Math teacher energy"],
+  [86, "every-day-is-a-math-day", "Every Day Is a Math Day", "Math teacher energy"],
+  [87, "teach-solve-repeat", "Teach, Solve, Repeat", "Math teacher energy"],
+  [88, "pencils-down-confidence-up", "Pencils Down, Confidence Up", "Math teacher energy"],
+  [89, "mistakes-are-data", "Mistakes Are Data", "Math teacher energy"],
+  [90, "show-your-work-share-your-wonder", "Show Your Work, Share Your Wonder", "Math teacher energy"],
 
   // 10. Cutesy math creatures (91-100)
-  { id: 91, slug: "hypote-moose", title: "Hypote-moose", category: "Cutesy math creatures", image: null, status: "concept" },
-  { id: 92, slug: "alge-bear", title: "Alge-bear", category: "Cutesy math creatures", image: null, status: "concept" },
-  { id: 93, slug: "calcu-later-alligator", title: "Calcu-later, Alligator", category: "Cutesy math creatures", image: null, status: "concept" },
-  { id: 94, slug: "pi-thon-powered", title: "Pi-thon Powered", category: "Cutesy math creatures", image: null, status: "concept" },
-  { id: 95, slug: "geo-me-tree-hugger", title: "Geo-me-tree Hugger", category: "Cutesy math creatures", image: null, status: "concept" },
-  { id: 96, slug: "the-purr-fect-square", title: "The Purr-fect Square", category: "Cutesy math creatures", image: null, status: "concept" },
-  { id: 97, slug: "radical-raccoon", title: "Radical Raccoon", category: "Cutesy math creatures", image: null, status: "concept" },
-  { id: 98, slug: "sine-o-saur", title: "Sine-o-saur", category: "Cutesy math creatures", image: null, status: "concept" },
-  { id: 99, slug: "count-a-pillar", title: "Count-a-pillar", category: "Cutesy math creatures", image: null, status: "concept" },
-  { id: 100, slug: "sum-bunny-loves-math", title: "Sum Bunny Loves Math", category: "Cutesy math creatures", image: null, status: "concept" }
+  [91, "hypote-moose", "Hypote-moose", "Cutesy math creatures"],
+  [92, "alge-bear", "Alge-bear", "Cutesy math creatures"],
+  [93, "calcu-later-alligator", "Calcu-later, Alligator", "Cutesy math creatures"],
+  [94, "pi-thon-powered", "Pi-thon Powered", "Cutesy math creatures"],
+  [95, "geo-me-tree-hugger", "Geo-me-tree Hugger", "Cutesy math creatures"],
+  [96, "the-purr-fect-square", "The Purr-fect Square", "Cutesy math creatures"],
+  [97, "radical-raccoon", "Radical Raccoon", "Cutesy math creatures"],
+  [98, "sine-o-saur", "Sine-o-saur", "Cutesy math creatures"],
+  [99, "count-a-pillar", "Count-a-pillar", "Cutesy math creatures"],
+  [100, "sum-bunny-loves-math", "Sum Bunny Loves Math", "Cutesy math creatures"]
 ];
+
+// Optional saved approvals overrides map (kept updated by the approval workflow)
+const APPROVED_OVERRIDES = {
+  "count-on-me": {
+    "status": "approved",
+    "approved_version": 7,
+    "approved_at": "2026-09-23T17:56:21.386Z",
+    "assets": {
+      "master_png": "design-assets/approved/count-on-me/v7/print_master.png",
+      "final_svg": "design-assets/approved/count-on-me/v7/final.svg",
+      "web": "public/designs/count-on-me.webp",
+      "web_2x": "public/designs/count-on-me@2x.webp"
+    },
+    "sha256": {
+      "master_png": "907f0a7199347887a354ef5a22f3ca2a86fccc36cb6ea88bad17f8501c6cb76b",
+      "final_svg": "2216376258fcf7dd60e30d8114f506cbc92d34c2e09c24d7e4b5033d1c80572c",
+      "web": "c418aa0477bc450b8502ab4ed0ef26ffed729b593bd64fe4cfe317c7f8a5a5c3",
+      "web_2x": "bf08f15ba7a0a8581593b281b849cd205807221e4c500b6e12f830b332073aca"
+    },
+    "dimensions": {
+      "width": 4500,
+      "height": 5400
+    },
+    "model_or_tool": "Midjourney / FLUX",
+    "prompt": null,
+    "notes": "Approved print finalization: verified transparent background, exact shirt text Count on Me, collegiate outlines, zero semi-transparent pixels, no stray specks"
+  }
+};
+
+const DESIGN_CATALOG = RAW_CATALOG_RECORDS.map(([id, slug, pun, category]) => {
+  return createDesignEntry(id, slug, pun, category, APPROVED_OVERRIDES[slug] || {});
+});
 
 // Development-time integrity assertion
 (function validateCatalog() {
@@ -167,10 +266,10 @@ const DESIGN_CATALOG = [
 
     DESIGN_CATALOG.forEach((item, index) => {
       if (item.id !== index + 1) {
-        console.error(`[Design Catalog Assertion Failed] Item ${item.title} has invalid ID ${item.id}, expected ${index + 1}`);
+        console.error(`[Design Catalog Assertion Failed] Item ${item.pun} has invalid ID ${item.id}, expected ${index + 1}`);
       }
       if (ids.has(item.id)) {
-        console.error(`[Design Catalog Assertion Failed] Duplicate ID ${item.id} detected on ${item.title}`);
+        console.error(`[Design Catalog Assertion Failed] Duplicate ID ${item.id} detected on ${item.pun}`);
       }
       ids.add(item.id);
 
@@ -180,15 +279,15 @@ const DESIGN_CATALOG = [
       slugs.add(item.slug);
 
       if (!DESIGN_CATEGORIES.includes(item.category)) {
-        console.error(`[Design Catalog Assertion Failed] Invalid category "${item.category}" on ${item.title}`);
+        console.error(`[Design Catalog Assertion Failed] Invalid category "${item.category}" on ${item.pun}`);
       }
     });
   }
 })();
 
-// Export for Node.js test environment and browser window
+// Export for Node.js environment and browser window
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { DESIGN_CATALOG, DESIGN_CATEGORIES };
+  module.exports = { DESIGN_CATALOG, DESIGN_CATEGORIES, createDesignEntry };
 }
 if (typeof window !== 'undefined') {
   window.DESIGN_CATALOG = DESIGN_CATALOG;

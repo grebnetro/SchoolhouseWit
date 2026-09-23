@@ -1,0 +1,21 @@
+{
+  "name": "schoolhousewit",
+  "version": "1.0.0",
+  "description": "SchoolhouseWit - Classroom-ready pun tees for teachers",
+  "main": "worker.js",
+  "scripts": {
+    "approve-design": "node scripts/approve-design.js",
+    "build:designs": "node scripts/build-designs-page.js",
+    "test": "node scripts/verify-catalog.test.js && node scripts/verify-site.test.js && node scripts/verify-worker.test.js && node scripts/test-design-interactions.js && node scripts/verify-approval-flow.test.js"
+  },
+  "keywords": [
+    "schoolhousewit",
+    "math-puns",
+    "t-shirts"
+  ],
+  "author": "SchoolhouseWit",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "sharp": "^0.35.4"
+  }
+}

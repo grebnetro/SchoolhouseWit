@@ -1,0 +1,23 @@
+{
+  "id": 1,
+  "slug": "count-on-me",
+  "pun": "Count on Me",
+  "category": "Arithmetic & fractions",
+  "version": 1,
+  "approved_at": "2026-09-23T13:21:39.655Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "14720570404be4181f5d6391331b19c61d933bafef00952b0209720a7a3ed4f3",
+    "final_svg": "4aa2f4791f77efd89a990764b9b1b727d58be9d3b3a9e6d11e67364e7163ca82",
+    "master_png": "dabbab37b701c5d48ba8b33ce5bd1306cd02fc7281697942d28cd8b1a680d8fa",
+    "web": "220c0f1c0a86db79469f23fcdb2ce2a0d47af99c02e7a51f854d8a523c6fccc7",
+    "web_2x": "45931b8983f3a7683458303b313c3b0b15d23e3e6369dd542cba48a0d7bdd5e9"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "Inaugural math drop master artwork: retro calculator with thumbs up"
+}

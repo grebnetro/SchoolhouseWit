@@ -1,0 +1,23 @@
+{
+  "id": 1,
+  "slug": "count-on-me",
+  "pun": "Count on Me",
+  "category": "Arithmetic & fractions",
+  "version": 2,
+  "approved_at": "2026-09-23T13:38:35.587Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "14720570404be4181f5d6391331b19c61d933bafef00952b0209720a7a3ed4f3",
+    "final_svg": "bd404ef25aa7711bd8169e752099f601ef59741c3aae245cb67e3d55f655aea4",
+    "master_png": "1eef24f78c3a7547852a93ca225050d4dc3a30aa38184fc600523b505274866e",
+    "web": "4e79d8e8b3562e0f2f8f3c279d5895007127f0772dceec8356aa6208059d1581",
+    "web_2x": "b37d280ec9e148fd7c3c64f28f2ae07e4cb93847a9638526046fd69ab170f534"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "v2 revision: prominent shirt pun typography, brand tags removed, balanced graphic lockup"
+}

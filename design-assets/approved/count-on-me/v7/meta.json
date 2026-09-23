@@ -1,0 +1,23 @@
+{
+  "id": 1,
+  "slug": "count-on-me",
+  "pun": "Count on Me",
+  "category": "Arithmetic & fractions",
+  "version": 7,
+  "approved_at": "2026-09-23T17:56:21.386Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "454cb6d0696c69fd52dea6f386ce49ed1d371e0f58aaa079ab0fea92373bfd85",
+    "final_svg": "2216376258fcf7dd60e30d8114f506cbc92d34c2e09c24d7e4b5033d1c80572c",
+    "master_png": "907f0a7199347887a354ef5a22f3ca2a86fccc36cb6ea88bad17f8501c6cb76b",
+    "web": "c418aa0477bc450b8502ab4ed0ef26ffed729b593bd64fe4cfe317c7f8a5a5c3",
+    "web_2x": "bf08f15ba7a0a8581593b281b849cd205807221e4c500b6e12f830b332073aca"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "Approved print finalization: verified transparent background, exact shirt text Count on Me, collegiate outlines, zero semi-transparent pixels, no stray specks"
+}

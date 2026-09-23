@@ -82,10 +82,10 @@ DESIGN_CATALOG.forEach(item => {
   assert(typeof item.id === 'number', `Item #${item.id} id is not a number`);
   assert(typeof item.title === 'string' && item.title.trim().length > 0, `Item #${item.id} title missing`);
   assert(typeof item.category === 'string', `Item #${item.id} category missing`);
-  assert(item.image === null || typeof item.image === 'string', `Item #${item.id} image invalid`);
-  assert.strictEqual(item.status, 'concept', `Item #${item.id} status must be "concept"`);
+  const validStatuses = ['idea', 'generating', 'in_review', 'approved', 'retired'];
+  assert(validStatuses.includes(item.status), `Item #${item.id} status "${item.status}" must be one of ${validStatuses.join(', ')}`);
 });
-console.log('✓ All 100 records conform to required data schema (with image: null and status: "concept")');
+console.log('✓ All 100 records conform to required data schema (with pun, status, assets, sha256)');
 
 // 7. Spot Check Specific Required Concepts
 const spotChecks = [

@@ -1,0 +1,23 @@
+{
+  "id": 1,
+  "slug": "count-on-me",
+  "pun": "Count on Me",
+  "category": "Arithmetic & fractions",
+  "version": 5,
+  "approved_at": "2026-09-23T14:41:56.548Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "454cb6d0696c69fd52dea6f386ce49ed1d371e0f58aaa079ab0fea92373bfd85",
+    "final_svg": "b98bf533e21b7dd210a238fd9d67ba94601cdf3a8ba1d987d75a1cb3a0d50bea",
+    "master_png": "c8e2c647cd099c34d4ea3123c787972fc36e5edcc05763aa82939ab12e9ad716",
+    "web": "e801ec8b51546a6f60faeb1c23a1ea3ae5609b415dc46ef9caa5b46879b6a2ef",
+    "web_2x": "b6f2bfb2be51d6e6e3dda281dd85a5e4896b70336e3865d9ec16547d6c9187e7"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "v5 revision: tightened composition, scaled up 16%, reduced gap 35%, aligned text with calculator body, lowered numerals cluster, speck cleanup and isolated mark removed"
+}

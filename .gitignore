@@ -21,3 +21,7 @@ yarn-error.log*
 .vscode/
 *.swp
 *.swo
+
+# Design candidate work drafts
+design-assets/work/
+
