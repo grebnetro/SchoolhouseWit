@@ -1,0 +1,23 @@
+{
+  "id": 3,
+  "slug": "addition-is-my-plus-one",
+  "pun": "Addition Is My Plus-One",
+  "category": "Arithmetic & fractions",
+  "version": 1,
+  "approved_at": "2026-09-23T19:58:33.074Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "2dc88513ec48c0027cfeaf5fcc370c6c0fe5d168415aa45bd8b3e06a993523e7",
+    "final_svg": "1d03b2407c20a49209c5e7dc4c048abb30a1e81faccd2b4d68fb4c5735dedd9d",
+    "master_png": "b5d7d24ad149199d58d385422902c77fdf51cbad51fa942cac043a8fca0bae0f",
+    "web": "202730c6a50d861b93fe113ed1f1cd6be5fa8fbe1618032eaa2af676f5e6a15f",
+    "web_2x": "2d0ddc44505265d2483b2007928eaf82c37f12ca7d4ce089c59d48ab3a3ec0d7"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "Approved v1: Plus mascot character with real SVG pun text, magenta background removed, transparent corners, 0 semi-transparent pixels"
+}

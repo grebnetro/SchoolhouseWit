@@ -1,0 +1,23 @@
+{
+  "id": 3,
+  "slug": "addition-is-my-plus-one",
+  "pun": "Addition Is My Plus-One",
+  "category": "Arithmetic & fractions",
+  "version": 2,
+  "approved_at": "2026-09-23T20:11:00.912Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "2dc88513ec48c0027cfeaf5fcc370c6c0fe5d168415aa45bd8b3e06a993523e7",
+    "final_svg": "c3ff7df5dd9b4f00cb24c439efd054bebb87f81fcf4b2d5806fc9f02ea6b6019",
+    "master_png": "792e8f24f6db7d133f36f6369eabc510a28a21eee643c36a38a030310e49d34a",
+    "web": "363d397339c3d62e7631edd3c520028ffbfc8720aa68c7e22e05ab90c6e37cdf",
+    "web_2x": "36060e5602d30d4f16def0ef32e3e6f2e7c632c2cf3ee5c8fa12151bf45bb1da"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "Approved v2: Stacked Addition Is / My Plus-One lettering, tight clear gap, optically centered composition"
+}

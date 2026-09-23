@@ -267,6 +267,30 @@ const APPROVED_OVERRIDES = {
     "model_or_tool": "Midjourney / FLUX",
     "prompt": null,
     "notes": "Approved v2: Stacked Sum Kind / of Wonderful lettering, tight clear gap, optically centered composition"
+  },
+  "addition-is-my-plus-one": {
+    "status": "approved",
+    "approved_version": 2,
+    "approved_at": "2026-09-23T20:11:00.912Z",
+    "assets": {
+      "master_png": "design-assets/approved/addition-is-my-plus-one/v2/print_master.png",
+      "final_svg": "design-assets/approved/addition-is-my-plus-one/v2/final.svg",
+      "web": "public/designs/addition-is-my-plus-one.webp",
+      "web_2x": "public/designs/addition-is-my-plus-one@2x.webp"
+    },
+    "sha256": {
+      "master_png": "792e8f24f6db7d133f36f6369eabc510a28a21eee643c36a38a030310e49d34a",
+      "final_svg": "c3ff7df5dd9b4f00cb24c439efd054bebb87f81fcf4b2d5806fc9f02ea6b6019",
+      "web": "363d397339c3d62e7631edd3c520028ffbfc8720aa68c7e22e05ab90c6e37cdf",
+      "web_2x": "36060e5602d30d4f16def0ef32e3e6f2e7c632c2cf3ee5c8fa12151bf45bb1da"
+    },
+    "dimensions": {
+      "width": 4500,
+      "height": 5400
+    },
+    "model_or_tool": "Midjourney / FLUX",
+    "prompt": null,
+    "notes": "Approved v2: Stacked Addition Is / My Plus-One lettering, tight clear gap, optically centered composition"
   }
 };
 

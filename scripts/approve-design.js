@@ -305,7 +305,76 @@ function buildComposedSvg(punText, graphicPngBase64, slug) {
   </g>
 </svg>`;
   }
-  let fontSize = 480;
+
+  // Dedicated layout for "addition-is-my-plus-one" - Retro plus character mascot with stacked text
+  if (slug === 'addition-is-my-plus-one') {
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 4500 5400" width="4500" height="5400">
+  <defs>
+    <style>
+      .shirt-pun-text {
+        font-family: 'Arial Rounded MT Bold', 'Fraunces', 'Outfit', sans-serif;
+        font-weight: 900;
+        text-anchor: middle;
+      }
+      .outer-border-line1 {
+        stroke: #192D50;
+        stroke-width: 60px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #192D50;
+      }
+      .cream-outline-line1 {
+        stroke: #FAF5DE;
+        stroke-width: 42px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #FAF5DE;
+      }
+      .navy-fill-line1 {
+        fill: #192D50;
+      }
+      .outer-border-line2 {
+        stroke: #192D50;
+        stroke-width: 56px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #192D50;
+      }
+      .cream-outline-line2 {
+        stroke: #FAF5DE;
+        stroke-width: 38px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #FAF5DE;
+      }
+      .navy-fill-line2 {
+        fill: #192D50;
+      }
+    </style>
+  </defs>
+
+  <g id="shirt-graphic-group">
+    <!-- Graphic Artwork: Clean Plus Mascot Character -->
+    <g id="artwork-layer">
+      <image href="data:image/png;base64,${graphicPngBase64}" xlink:href="data:image/png;base64,${graphicPngBase64}" x="650" y="560" width="3200" height="3200" preserveAspectRatio="xMidYMid meet"/>
+    </g>
+
+    <!-- Real SVG Pun Text: Stacked Two Lines -->
+    <g id="pun-layer">
+      <!-- Line 1: Addition Is -->
+      <text class="shirt-pun-text outer-border-line1" font-size="390px" x="2250" y="3740">Addition Is</text>
+      <text class="shirt-pun-text cream-outline-line1" font-size="390px" x="2250" y="3740">Addition Is</text>
+      <text class="shirt-pun-text navy-fill-line1" font-size="390px" x="2250" y="3740">Addition Is</text>
+
+      <!-- Line 2: My Plus-One -->
+      <text class="shirt-pun-text outer-border-line2" font-size="340px" x="2250" y="4140">My Plus-One</text>
+      <text class="shirt-pun-text cream-outline-line2" font-size="340px" x="2250" y="4140">My Plus-One</text>
+      <text class="shirt-pun-text navy-fill-line2" font-size="340px" x="2250" y="4140">My Plus-One</text>
+    </g>
+  </g>
+</svg>`;
+  }
   if (punText.length > 35) fontSize = 260;
   else if (punText.length > 25) fontSize = 320;
   else if (punText.length > 18) fontSize = 380;
@@ -423,6 +492,7 @@ Examples:
 
     // 5a. Convert/normalize candidate graphic to PNG
     let originalPngBuffer = await sharp(candidateBuffer)
+      .ensureAlpha()
       .png({ compressionLevel: 9 })
       .toBuffer();
 
@@ -689,7 +759,8 @@ Examples:
       svgRead.includes(`>${design.pun}<`) ||
       rawTextContent.includes(design.pun) ||
       (svgRead.includes('>Count<') && svgRead.includes('>on Me<')) ||
-      (svgRead.includes('>Sum Kind<') && svgRead.includes('>of Wonderful<'));
+      (svgRead.includes('>Sum Kind<') && svgRead.includes('>of Wonderful<')) ||
+      (svgRead.includes('>Addition Is<') && svgRead.includes('>My Plus-One<'));
     if (!hasExactPunText) {
       throw new Error(`SVG text verification failed: pun text does not match catalog pun "${design.pun}"`);
     }
