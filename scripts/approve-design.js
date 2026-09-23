@@ -375,6 +375,93 @@ function buildComposedSvg(punText, graphicPngBase64, slug) {
   </g>
 </svg>`;
   }
+
+  // Dedicated layout for "divide-and-conquer-the-day" - Division sunrise mascot with stacked text
+  // Dedicated layout for "divide-and-conquer-the-day" - Division sunrise mascot with 3-line stacked text lockup
+  if (slug === 'divide-and-conquer-the-day') {
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 4500 5400" width="4500" height="5400">
+  <defs>
+    <style>
+      .shirt-pun-text {
+        font-family: 'Arial Rounded MT Bold', 'Fraunces', 'Outfit', sans-serif;
+        font-weight: 900;
+        text-anchor: middle;
+      }
+      .outer-border-1 {
+        stroke: #192D50;
+        stroke-width: 66px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #192D50;
+      }
+      .cream-outline-1 {
+        stroke: #FAF5DE;
+        stroke-width: 44px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #FAF5DE;
+      }
+      .outer-border-2 {
+        stroke: #192D50;
+        stroke-width: 52px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #192D50;
+      }
+      .cream-outline-2 {
+        stroke: #FAF5DE;
+        stroke-width: 34px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #FAF5DE;
+      }
+      .outer-border-3 {
+        stroke: #192D50;
+        stroke-width: 64px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #192D50;
+      }
+      .cream-outline-3 {
+        stroke: #FAF5DE;
+        stroke-width: 42px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #FAF5DE;
+      }
+      .navy-fill {
+        fill: #192D50;
+      }
+    </style>
+  </defs>
+
+  <g id="shirt-graphic-group">
+    <!-- Graphic Artwork: Division Sunrise Mascot with Clouds -->
+    <g id="artwork-layer">
+      <image href="data:image/png;base64,${graphicPngBase64}" xlink:href="data:image/png;base64,${graphicPngBase64}" x="700" y="510" width="3100" height="3100" preserveAspectRatio="xMidYMid meet"/>
+    </g>
+
+    <!-- Real SVG Pun Text: Stacked Three Lines (Dominant Divide & the Day, compact lockup) -->
+    <g id="pun-layer">
+      <!-- Line 1: Divide -->
+      <text class="shirt-pun-text outer-border-1" font-size="480px" x="2250" y="3497">Divide</text>
+      <text class="shirt-pun-text cream-outline-1" font-size="480px" x="2250" y="3497">Divide</text>
+      <text class="shirt-pun-text navy-fill" font-size="480px" x="2250" y="3497">Divide</text>
+
+      <!-- Line 2: and Conquer -->
+      <text class="shirt-pun-text outer-border-2" font-size="350px" x="2250" y="3857">and Conquer</text>
+      <text class="shirt-pun-text cream-outline-2" font-size="350px" x="2250" y="3857">and Conquer</text>
+      <text class="shirt-pun-text navy-fill" font-size="350px" x="2250" y="3857">and Conquer</text>
+
+      <!-- Line 3: the Day -->
+      <text class="shirt-pun-text outer-border-3" font-size="460px" x="2250" y="4217">the Day</text>
+      <text class="shirt-pun-text cream-outline-3" font-size="460px" x="2250" y="4217">the Day</text>
+      <text class="shirt-pun-text navy-fill" font-size="460px" x="2250" y="4217">the Day</text>
+    </g>
+  </g>
+</svg>`;
+  }
   if (punText.length > 35) fontSize = 260;
   else if (punText.length > 25) fontSize = 320;
   else if (punText.length > 18) fontSize = 380;
@@ -760,7 +847,9 @@ Examples:
       rawTextContent.includes(design.pun) ||
       (svgRead.includes('>Count<') && svgRead.includes('>on Me<')) ||
       (svgRead.includes('>Sum Kind<') && svgRead.includes('>of Wonderful<')) ||
-      (svgRead.includes('>Addition Is<') && svgRead.includes('>My Plus-One<'));
+      (svgRead.includes('>Addition Is<') && svgRead.includes('>My Plus-One<')) ||
+      (svgRead.includes('>Divide and Conquer<') && (svgRead.includes('>the Day<') || svgRead.includes('>The Day<'))) ||
+      (svgRead.includes('>Divide<') && svgRead.includes('>and Conquer<') && (svgRead.includes('>the Day<') || svgRead.includes('>The Day<')));
     if (!hasExactPunText) {
       throw new Error(`SVG text verification failed: pun text does not match catalog pun "${design.pun}"`);
     }

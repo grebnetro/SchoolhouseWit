@@ -1,0 +1,6 @@
+design-assets/
+scripts/
+.git/
+.gemini/
+node_modules/
+*.log

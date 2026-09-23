@@ -1,0 +1,23 @@
+{
+  "id": 4,
+  "slug": "divide-and-conquer-the-day",
+  "pun": "Divide and Conquer the Day",
+  "category": "Arithmetic & fractions",
+  "version": 2,
+  "approved_at": "2026-09-23T20:38:03.788Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "77417f688f8c585f206158ce4fc69d0e2b552b6011b7f9f01ab28db9ebd108a1",
+    "final_svg": "cdde6641f122bdcb0697bc575e7c19785be9bda39a4ee63822fad9f3621ba7e4",
+    "master_png": "44cae4453d4aa9a5fbfb855d9dcf13092ca9e418ca3125ee3e91900fa8ea133a",
+    "web": "d702570ce1217a4f698987ec84e068cab1219176e5c154aff9fe6db614f11b42",
+    "web_2x": "ba43331312418325289570eef1c3000f1d33256e6fa4620f25f76d5136650005"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "Approved v2: Three-line stacked text lockup with dominant Divide / the Day bookends and tight line spacing"
+}

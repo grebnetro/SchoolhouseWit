@@ -1,0 +1,23 @@
+{
+  "id": 4,
+  "slug": "divide-and-conquer-the-day",
+  "pun": "Divide and Conquer the Day",
+  "category": "Arithmetic & fractions",
+  "version": 1,
+  "approved_at": "2026-09-23T20:32:33.734Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "77417f688f8c585f206158ce4fc69d0e2b552b6011b7f9f01ab28db9ebd108a1",
+    "final_svg": "24c16c30930748ad4850ee86e51cb20145a24409a6587b34e0610c810e63fc44",
+    "master_png": "f8712c3f8ff3dec494aa388f6f44e880ec47d292cd921b429c9ca46dae7df865",
+    "web": "b1989723cbe747c83dbdec9350051954a9b944bdb6eed0ebd1187900f081c8db",
+    "web_2x": "a721677c89cd49367fd97d49d42f7268ab020fabfd696aee396cc4bcf7549be8"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "Approved v1: Division sunrise mascot with stacked Divide and Conquer / the Day collegiate lettering"
+}

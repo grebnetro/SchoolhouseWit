@@ -61,7 +61,9 @@ function generatePageHtml() {
                 ? 'Sum Kind of Wonderful shirt artwork'
                 : (item.slug === 'addition-is-my-plus-one'
                     ? 'Addition Is My Plus-One shirt artwork'
-                    : `Official artwork for ${escapeHtml(item.pun || item.title)} shirt concept`)))
+                    : (item.slug === 'divide-and-conquer-the-day'
+                        ? 'Divide and Conquer the Day shirt artwork'
+                        : `Official artwork for ${escapeHtml(item.pun || item.title)} shirt concept`))))
         : `Artwork placeholder for ${escapeHtml(item.title)} shirt concept`;
       const statusPill = isApproved
         ? `<div class="artwork-status-pill artwork-status-approved">

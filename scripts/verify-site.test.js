@@ -61,7 +61,9 @@ DESIGN_CATALOG.forEach(item => {
             ? 'Sum Kind of Wonderful shirt artwork'
             : (item.slug === 'addition-is-my-plus-one'
                 ? 'Addition Is My Plus-One shirt artwork'
-                : `Official artwork for ${item.title.replace(/&/g, '&amp;').replace(/'/g, '&#039;')} shirt concept`)))
+                : (item.slug === 'divide-and-conquer-the-day'
+                    ? 'Divide and Conquer the Day shirt artwork'
+                    : `Official artwork for ${item.title.replace(/&/g, '&amp;').replace(/'/g, '&#039;')} shirt concept`))))
     : `Artwork placeholder for ${item.title.replace(/&/g, '&amp;').replace(/'/g, '&#039;')} shirt concept`;
   assert(designsHtml.includes(expectedAlt), `Alt text missing or mismatched for #${item.id}`);
 });
