@@ -243,6 +243,30 @@ const APPROVED_OVERRIDES = {
     "model_or_tool": "Midjourney / FLUX",
     "prompt": null,
     "notes": "Approved print finalization: verified transparent background, exact shirt text Count on Me, collegiate outlines, zero semi-transparent pixels, no stray specks"
+  },
+  "sum-kind-of-wonderful": {
+    "status": "approved",
+    "approved_version": 2,
+    "approved_at": "2026-09-23T18:32:28.979Z",
+    "assets": {
+      "master_png": "design-assets/approved/sum-kind-of-wonderful/v2/print_master.png",
+      "final_svg": "design-assets/approved/sum-kind-of-wonderful/v2/final.svg",
+      "web": "public/designs/sum-kind-of-wonderful.webp",
+      "web_2x": "public/designs/sum-kind-of-wonderful@2x.webp"
+    },
+    "sha256": {
+      "master_png": "2d6078abea5b3498751e5fc416b1279aaaca0eb1f548b0ed79a3cd7f3555ec7a",
+      "final_svg": "a53b05e19b6e48b0280c7fd284c3eac41a63447b62b029c0b58ee3a97b06c4d3",
+      "web": "a77b962ea34cf8ec708c4a1757d5e41fc03f02b9cc126cd82d53fa611c2de966",
+      "web_2x": "98793dcd7ac42e1ad26712822a3fcd0770bb620ab7eb03221e15ec632c8e25db"
+    },
+    "dimensions": {
+      "width": 4500,
+      "height": 5400
+    },
+    "model_or_tool": "Midjourney / FLUX",
+    "prompt": null,
+    "notes": "Approved v2: Stacked Sum Kind / of Wonderful lettering, tight clear gap, optically centered composition"
   }
 };
 

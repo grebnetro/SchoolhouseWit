@@ -49,7 +49,8 @@ function getCatalog() {
  */
 function getDesignBySlug(slug) {
   const catalog = getCatalog();
-  return catalog.find((d) => d.slug.toLowerCase() === slug.toLowerCase()) || null;
+  const normalized = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  return catalog.find((d) => d.slug.toLowerCase() === slug.toLowerCase() || d.slug.toLowerCase() === normalized) || null;
 }
 
 /**

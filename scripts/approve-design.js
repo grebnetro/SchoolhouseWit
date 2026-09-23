@@ -236,7 +236,75 @@ function buildComposedSvg(punText, graphicPngBase64, slug) {
 </svg>`;
   }
 
-  // Default clean centered shirt typography for other designs
+  // Dedicated layout for "sum-kind-of-wonderful" - Integrated playful retro emblem with stacked text
+  if (slug === 'sum-kind-of-wonderful') {
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 4500 5400" width="4500" height="5400">
+  <defs>
+    <style>
+      .shirt-pun-text {
+        font-family: 'Arial Rounded MT Bold', 'Fraunces', 'Outfit', sans-serif;
+        font-weight: 900;
+        text-anchor: middle;
+      }
+      .outer-border-line1 {
+        stroke: #192D50;
+        stroke-width: 62px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #192D50;
+      }
+      .cream-outline-line1 {
+        stroke: #FAF5DE;
+        stroke-width: 44px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #FAF5DE;
+      }
+      .navy-fill-line1 {
+        fill: #192D50;
+      }
+      .outer-border-line2 {
+        stroke: #192D50;
+        stroke-width: 52px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #192D50;
+      }
+      .cream-outline-line2 {
+        stroke: #FAF5DE;
+        stroke-width: 34px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        fill: #FAF5DE;
+      }
+      .navy-fill-line2 {
+        fill: #192D50;
+      }
+    </style>
+  </defs>
+
+  <g id="shirt-graphic-group">
+    <!-- Graphic Artwork: Clean Sigma Character -->
+    <g id="artwork-layer">
+      <image href="data:image/png;base64,${graphicPngBase64}" xlink:href="data:image/png;base64,${graphicPngBase64}" x="650" y="550" width="3200" height="3200" preserveAspectRatio="xMidYMid meet"/>
+    </g>
+
+    <!-- Real SVG Pun Text: Stacked Two Lines -->
+    <g id="pun-layer">
+      <!-- Line 1: Sum Kind -->
+      <text class="shirt-pun-text outer-border-line1" font-size="450px" x="2250" y="3790">Sum Kind</text>
+      <text class="shirt-pun-text cream-outline-line1" font-size="450px" x="2250" y="3790">Sum Kind</text>
+      <text class="shirt-pun-text navy-fill-line1" font-size="450px" x="2250" y="3790">Sum Kind</text>
+
+      <!-- Line 2: of Wonderful -->
+      <text class="shirt-pun-text outer-border-line2" font-size="310px" x="2250" y="4170">of Wonderful</text>
+      <text class="shirt-pun-text cream-outline-line2" font-size="310px" x="2250" y="4170">of Wonderful</text>
+      <text class="shirt-pun-text navy-fill-line2" font-size="310px" x="2250" y="4170">of Wonderful</text>
+    </g>
+  </g>
+</svg>`;
+  }
   let fontSize = 480;
   if (punText.length > 35) fontSize = 260;
   else if (punText.length > 25) fontSize = 320;
@@ -357,6 +425,40 @@ Examples:
     let originalPngBuffer = await sharp(candidateBuffer)
       .png({ compressionLevel: 9 })
       .toBuffer();
+
+    // Automatic chroma-key pass if candidate has magenta background (#FF00FF)
+    const probe = await sharp(originalPngBuffer).raw().toBuffer({ resolveWithObject: true });
+    let magentaPixels = 0;
+    for (let i = 0; i < probe.data.length; i += 4) {
+      const r = probe.data[i], g = probe.data[i+1], b = probe.data[i+2];
+      if (probe.data[i+3] > 100 && r - g > 45 && b - g > 45) magentaPixels++;
+    }
+    if (magentaPixels > 1000) {
+      console.log(`  Chroma-key: detected magenta background (${magentaPixels} px). Removing background and cleaning fringe...`);
+      const pw = probe.info.width, ph = probe.info.height;
+      const keyed = Buffer.alloc(pw * ph * 4);
+      for (let y = 0; y < ph; y++) {
+        for (let x = 0; x < pw; x++) {
+          const idx = (y * pw + x) * 4;
+          const r = probe.data[idx], g = probe.data[idx+1], b = probe.data[idx+2];
+          const rExcess = r - g, bExcess = b - g;
+          const magentaTint = Math.min(rExcess, bExcess);
+          if (magentaTint > 45 && (r > 120 || b > 120)) {
+            keyed[idx] = 0; keyed[idx+1] = 0; keyed[idx+2] = 0; keyed[idx+3] = 0;
+          } else if (magentaTint > 18 && (r > 80 || b > 80)) {
+            keyed[idx] = Math.min(r, g + 8);
+            keyed[idx+1] = g;
+            keyed[idx+2] = Math.min(b, g + 8);
+            keyed[idx+3] = 255;
+          } else {
+            keyed[idx] = r; keyed[idx+1] = g; keyed[idx+2] = b; keyed[idx+3] = probe.data[idx+3];
+          }
+        }
+      }
+      originalPngBuffer = await sharp(keyed, { raw: { width: pw, height: ph, channels: 4 } })
+        .png({ compressionLevel: 9 })
+        .toBuffer();
+    }
 
     // For count-on-me: clean flat numbers, isolated mark right of thumb, and run speck cleanup
     if (slug === 'count-on-me') {
@@ -586,7 +688,8 @@ Examples:
     const hasExactPunText = svgRead.includes(`>${design.pun.replace(/&/g, '&amp;')}<`) || 
       svgRead.includes(`>${design.pun}<`) ||
       rawTextContent.includes(design.pun) ||
-      (svgRead.includes('>Count<') && svgRead.includes('>on Me<'));
+      (svgRead.includes('>Count<') && svgRead.includes('>on Me<')) ||
+      (svgRead.includes('>Sum Kind<') && svgRead.includes('>of Wonderful<'));
     if (!hasExactPunText) {
       throw new Error(`SVG text verification failed: pun text does not match catalog pun "${design.pun}"`);
     }

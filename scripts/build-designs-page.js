@@ -55,7 +55,11 @@ function generatePageHtml() {
       const imgSrc = isApproved ? `/${item.assets.web}` : (item.image || '/assets/shirt-placeholder.svg');
       const srcsetAttr = isApproved && item.assets?.web_2x ? ` srcset="/${item.assets.web} 1x, /${item.assets.web_2x} 2x"` : '';
       const altText = isApproved
-        ? (item.slug === 'count-on-me' ? 'Count on Me shirt artwork' : `Official artwork for ${escapeHtml(item.pun || item.title)} shirt concept`)
+        ? (item.slug === 'count-on-me'
+            ? 'Count on Me shirt artwork'
+            : (item.slug === 'sum-kind-of-wonderful'
+                ? 'Sum Kind of Wonderful shirt artwork'
+                : `Official artwork for ${escapeHtml(item.pun || item.title)} shirt concept`))
         : `Artwork placeholder for ${escapeHtml(item.title)} shirt concept`;
       const statusPill = isApproved
         ? `<div class="artwork-status-pill artwork-status-approved">

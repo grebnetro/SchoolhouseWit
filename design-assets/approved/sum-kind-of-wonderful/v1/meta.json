@@ -1,0 +1,23 @@
+{
+  "id": 2,
+  "slug": "sum-kind-of-wonderful",
+  "pun": "Sum Kind of Wonderful",
+  "category": "Arithmetic & fractions",
+  "version": 1,
+  "approved_at": "2026-09-23T18:23:53.829Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "289ba5a6e5729c1748937a4133ae408e705881c95031c1307736b08b1c9b11e4",
+    "final_svg": "510dbad53175b693cd3ae4b8410e7ca1f7ceaf3bd67138bee7ac11ca6d2ea51d",
+    "master_png": "e56ddfa1a516ef271a2998dc55b72d1d5f843d31495c67315f1fb4cea1bd7ffd",
+    "web": "ff0e1927a80d7210abe942ddf71cee56a4341f40aa9709e8b21d242e6a73f6c2",
+    "web_2x": "43e58dce7a46174f0a7cc9ca11d22f6c99e57591e5f02ee013fb5272dd99110b"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "Approved v1: Sigma character with real SVG pun text, magenta background removed, transparent corners, 0 semi-transparent pixels"
+}

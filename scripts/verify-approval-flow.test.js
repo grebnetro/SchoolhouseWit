@@ -24,7 +24,7 @@ const { ROOT_DIR, getDesignBySlug, getCatalog, updateCatalogRecord } = require('
 async function runApprovalVerification() {
   console.log('Starting End-to-End Approval Workflow Verification...\n');
 
-  const testSlug = 'sum-kind-of-wonderful';
+  const testSlug = 'sum-bunny-loves-math';
   const workDir = path.join(ROOT_DIR, 'design-assets', 'work', testSlug);
   const approvedDir = path.join(ROOT_DIR, 'design-assets', 'approved', testSlug);
   const publicWebp = path.join(ROOT_DIR, 'public', 'designs', `${testSlug}.webp`);

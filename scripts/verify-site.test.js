@@ -55,7 +55,11 @@ console.log('✓ Filter chips and search controls verified');
 DESIGN_CATALOG.forEach(item => {
   assert(designsHtml.includes(`id="concept-${item.slug}"`), `Card for concept "${item.slug}" missing from pre-rendered DOM`);
   const expectedAlt = item.status === 'approved' && item.assets?.web
-    ? (item.slug === 'count-on-me' ? 'Count on Me shirt artwork' : `Official artwork for ${item.title.replace(/&/g, '&amp;').replace(/'/g, '&#039;')} shirt concept`)
+    ? (item.slug === 'count-on-me'
+        ? 'Count on Me shirt artwork'
+        : (item.slug === 'sum-kind-of-wonderful'
+            ? 'Sum Kind of Wonderful shirt artwork'
+            : `Official artwork for ${item.title.replace(/&/g, '&amp;').replace(/'/g, '&#039;')} shirt concept`))
     : `Artwork placeholder for ${item.title.replace(/&/g, '&amp;').replace(/'/g, '&#039;')} shirt concept`;
   assert(designsHtml.includes(expectedAlt), `Alt text missing or mismatched for #${item.id}`);
 });
