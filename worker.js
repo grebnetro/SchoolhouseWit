@@ -7,7 +7,12 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // 1. API: Waitlist Email Submission & Status Check
+    // 1. Canonical redirect /designs to /designs/
+    if (url.pathname === '/designs') {
+      return Response.redirect(`${url.origin}/designs/`, 301);
+    }
+
+    // 2. API: Waitlist Email Submission & Status Check
     if (url.pathname === '/api/waitlist') {
       const corsHeaders = {
         'Access-Control-Allow-Origin': '*',

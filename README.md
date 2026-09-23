@@ -55,6 +55,7 @@ All graphics live inside the **[`assets/`](file:///assets/)** folder:
 | **Favicon** | `assets/favicon.svg` | SVG or ICO | Browser tab icon |
 | **Hero T-Shirt** | `assets/shirt-hero.svg` | SVG or PNG (transparent) | First Drop mockup (*"I'm acute teacher"* pun) |
 | **Featured T-Shirt** | `assets/shirt-featured.svg` | SVG or PNG (transparent) | Concept mockup (*"Parallel lines"* pun) |
+| **Design Library Placeholder** | `assets/shirt-placeholder.svg` | SVG or PNG | Neutral concept artwork placeholder for `/designs/` cards |
 | **Social / OpenGraph** | `assets/og-image.svg` | PNG or SVG (1200x630px) | Preview image for Twitter/Facebook/iMessage sharing |
 
 To replace any image, drop your final file into `assets/` and update the `src=""` attribute in `index.html`.

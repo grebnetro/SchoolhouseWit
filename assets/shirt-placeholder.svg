@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" width="100%" height="100%" aria-hidden="true" role="img">
+  <defs>
+    <!-- Soft warm background vignette -->
+    <linearGradient id="phBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8F6F0"/>
+      <stop offset="100%" stop-color="#EFE9DE"/>
+    </linearGradient>
+
+    <!-- Neutral shirt fabric gradient -->
+    <linearGradient id="phShirtGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D3B4E"/>
+      <stop offset="50%" stop-color="#222E3D"/>
+      <stop offset="100%" stop-color="#18222D"/>
+    </linearGradient>
+
+    <!-- Subtle soft shadow -->
+    <filter id="phShadow" x="-10%" y="-10%" width="125%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#16202C" flood-opacity="0.18"/>
+    </filter>
+
+    <pattern id="phGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#DCD5C9" stroke-width="0.75" stroke-opacity="0.7"/>
+    </pattern>
+  </defs>
+
+  <!-- Canvas background with drafting grid -->
+  <rect width="400" height="340" rx="12" fill="url(#phBg)"/>
+  <rect width="400" height="340" rx="12" fill="url(#phGrid)"/>
+
+  <!-- T-Shirt Silhouette Container -->
+  <g transform="translate(45, 20) scale(0.52)" filter="url(#phShadow)">
+    <!-- T-Shirt Outline -->
+    <path d="M 210 50 
+             C 240 75 360 75 390 50 
+             L 510 110 
+             C 525 118 535 135 528 152 
+             L 475 240 
+             C 470 248 458 252 450 246 
+             L 425 225 
+             L 435 570 
+             C 435 585 422 595 408 595 
+             L 192 595 
+             C 178 595 165 585 165 570 
+             L 175 225 
+             L 150 246 
+             C 142 252 130 248 125 240 
+             L 72 152 
+             C 65 135 75 118 90 110 
+             Z" 
+          fill="url(#phShirtGrad)" stroke="#3B4C60" stroke-width="2.5"/>
+
+    <!-- Collar -->
+    <path d="M 210 50 C 240 92 360 92 390 50 C 370 70 230 70 210 50 Z" fill="#141C24" stroke="#3B4C60" stroke-width="1.5"/>
+
+    <!-- Chest Print Frame / Blueprint Outline -->
+    <rect x="200" y="170" width="200" height="210" rx="8" fill="#1A2532" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="6,4" stroke-opacity="0.6"/>
+
+    <!-- Drafting Math Compass / Angle Mark -->
+    <path d="M 270 290 L 300 220 L 330 290" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+    <path d="M 283 260 C 293 255 307 255 317 260" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+    <line x1="260" y1="290" x2="340" y2="290" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+
+    <!-- Concept Typography -->
+    <text x="300" y="325" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="16" font-weight="700" letter-spacing="3" fill="#E2E8F0">
+      CONCEPT
+    </text>
+    <text x="300" y="348" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="12" font-weight="500" letter-spacing="1.5" fill="#F59E0B">
+      ARTWORK IN PROGRESS
+    </text>
+  </g>
+
+  <!-- Subtle corner registration marks -->
+  <line x1="16" y1="16" x2="28" y2="16" stroke="#94A3B8" stroke-width="1.5"/>
+  <line x1="16" y1="16" x2="16" y2="28" stroke="#94A3B8" stroke-width="1.5"/>
+  <line x1="384" y1="16" x2="372" y2="16" stroke="#94A3B8" stroke-width="1.5"/>
+  <line x1="384" y1="16" x2="384" y2="28" stroke="#94A3B8" stroke-width="1.5"/>
+  <line x1="16" y1="324" x2="28" y2="324" stroke="#94A3B8" stroke-width="1.5"/>
+  <line x1="16" y1="324" x2="16" y2="312" stroke="#94A3B8" stroke-width="1.5"/>
+  <line x1="384" y1="324" x2="372" y2="324" stroke="#94A3B8" stroke-width="1.5"/>
+  <line x1="384" y1="324" x2="384" y2="312" stroke="#94A3B8" stroke-width="1.5"/>
+</svg>
