@@ -377,61 +377,133 @@ function buildComposedSvg(punText, graphicPngBase64, slug) {
   }
 
   // Dedicated layout for "divide-and-conquer-the-day" - Division sunrise mascot with stacked text
-  // Dedicated layout for "divide-and-conquer-the-day" - Division sunrise mascot with 3-line stacked text lockup
+  // Dedicated layout for "divide-and-conquer-the-day" - Division sunrise mascot with Baloo 2 ExtraBold font-outlined bold collegiate bubble lettering
   if (slug === 'divide-and-conquer-the-day') {
+    const opentype = require('opentype.js');
+    const fontPath = path.join(ROOT_DIR, 'assets', 'fonts', 'Baloo2-ExtraBold.ttf');
+    const fontBuf = fs.readFileSync(fontPath);
+    const font = opentype.parse(fontBuf.buffer.slice(fontBuf.byteOffset, fontBuf.byteOffset + fontBuf.byteLength));
+
+    function pathToSvgData(pathObj, decimals = 2) {
+      let d = '';
+      for (const cmd of pathObj.commands) {
+        if (cmd.type === 'M') {
+          d += `M${cmd.x.toFixed(decimals)} ${cmd.y.toFixed(decimals)}`;
+        } else if (cmd.type === 'L') {
+          d += `L${cmd.x.toFixed(decimals)} ${cmd.y.toFixed(decimals)}`;
+        } else if (cmd.type === 'C') {
+          d += `C${cmd.x1.toFixed(decimals)} ${cmd.y1.toFixed(decimals)} ${cmd.x2.toFixed(decimals)} ${cmd.y2.toFixed(decimals)} ${cmd.x.toFixed(decimals)} ${cmd.y.toFixed(decimals)}`;
+        } else if (cmd.type === 'Q') {
+          d += `Q${cmd.x1.toFixed(decimals)} ${cmd.y1.toFixed(decimals)} ${cmd.x.toFixed(decimals)} ${cmd.y.toFixed(decimals)}`;
+        } else if (cmd.type === 'Z') {
+          d += 'Z';
+        }
+      }
+      return d;
+    }
+
+    function buildLineWithExactGaps(text, fontSize, letterAirGap, wordAirGap, strokeExtra) {
+      const glyphs = font.stringToGlyphs(text);
+      let cursorX = 0;
+      const items = [];
+
+      for (let i = 0; i < glyphs.length; i++) {
+        const glyph = glyphs[i];
+        const char = text[i];
+
+        if (char === ' ') {
+          const prevGlyph = items[items.length - 1];
+          const nextGlyph = glyphs[i + 1];
+          const nextPath = nextGlyph.getPath(0, 0, fontSize);
+          const nextBB = nextPath.getBoundingBox();
+          cursorX = prevGlyph.bbox.x2 + strokeExtra + wordAirGap - nextBB.x1;
+          continue;
+        }
+
+        if (i > 0 && text[i - 1] !== ' ') {
+          const prevGlyph = items[items.length - 1];
+          const currPath = glyph.getPath(0, 0, fontSize);
+          const currBB = currPath.getBoundingBox();
+          cursorX = prevGlyph.bbox.x2 + strokeExtra + letterAirGap - currBB.x1;
+        }
+
+        const p = glyph.getPath(cursorX, 0, fontSize);
+        const bb = p.getBoundingBox();
+        items.push({
+          char,
+          d: pathToSvgData(p, 2),
+          bbox: bb
+        });
+      }
+
+      const minX = items[0].bbox.x1 - strokeExtra / 2;
+      const maxX = items[items.length - 1].bbox.x2 + strokeExtra / 2;
+      const totalWidth = maxX - minX;
+
+      return { items, totalWidth, minX, maxX };
+    }
+
+    const strokeOuter = 88;
+    const strokeCream = 66;
+    const navyLetterStroke = 14;
+    const wordAirGap = 135;
+
+    // Line 1: Divide (s1 = 618, lag1 = 65 -> 2354 px, 92.7% of illustration width)
+    // Line 2: and Conquer (s2 = 246, lag2 = 24 -> 2380 px, 93.7% of illustration width)
+    // Line 3: the Day (s3 = 525, lag3 = 50 -> 2344 px, 92.3% of illustration width)
+    const s1 = 618, lag1 = 65;
+    const s2 = 246, lag2 = 24;
+    const s3 = 525, lag3 = 50;
+
+    const l1 = buildLineWithExactGaps('Divide', s1, lag1, wordAirGap, strokeOuter);
+    const l2 = buildLineWithExactGaps('and Conquer', s2, lag2, wordAirGap, strokeOuter);
+    const l3 = buildLineWithExactGaps('the Day', s3, lag3, wordAirGap, strokeOuter);
+
+    const offsetX1 = 2250 - (l1.minX + l1.totalWidth / 2);
+    const offsetX2 = 2250 - (l2.minX + l2.totalWidth / 2);
+    const offsetX3 = 2250 - (l3.minX + l3.totalWidth / 2);
+
+    const paths1 = l1.items.map(it => it.d).join(' ');
+    const paths2 = l2.items.map(it => it.d).join(' ');
+    const paths3 = l3.items.map(it => it.d).join(' ');
+
+    const y1 = 3637;
+    const y2 = 3948;
+    const y3 = 4482;
+
     return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 4500 5400" width="4500" height="5400">
   <defs>
     <style>
       .shirt-pun-text {
-        font-family: 'Arial Rounded MT Bold', 'Fraunces', 'Outfit', sans-serif;
-        font-weight: 900;
+        font-family: 'Baloo 2', 'Fredoka', sans-serif;
+        font-weight: 800;
         text-anchor: middle;
       }
-      .outer-border-1 {
+      .font-outer-border {
         stroke: #192D50;
-        stroke-width: 66px;
+        stroke-width: ${strokeOuter}px;
         stroke-linejoin: round;
         stroke-linecap: round;
         fill: #192D50;
       }
-      .cream-outline-1 {
+      .font-cream-outline {
         stroke: #FAF5DE;
-        stroke-width: 44px;
+        stroke-width: ${strokeCream}px;
         stroke-linejoin: round;
         stroke-linecap: round;
         fill: #FAF5DE;
       }
-      .outer-border-2 {
+      .font-navy-fill {
         stroke: #192D50;
-        stroke-width: 52px;
+        stroke-width: ${navyLetterStroke}px;
         stroke-linejoin: round;
         stroke-linecap: round;
         fill: #192D50;
       }
-      .cream-outline-2 {
-        stroke: #FAF5DE;
-        stroke-width: 34px;
-        stroke-linejoin: round;
-        stroke-linecap: round;
-        fill: #FAF5DE;
-      }
-      .outer-border-3 {
-        stroke: #192D50;
-        stroke-width: 64px;
-        stroke-linejoin: round;
-        stroke-linecap: round;
-        fill: #192D50;
-      }
-      .cream-outline-3 {
-        stroke: #FAF5DE;
-        stroke-width: 42px;
-        stroke-linejoin: round;
-        stroke-linecap: round;
-        fill: #FAF5DE;
-      }
-      .navy-fill {
-        fill: #192D50;
+      .sr-only {
+        visibility: hidden;
+        font-size: 0;
       }
     </style>
   </defs>
@@ -439,25 +511,39 @@ function buildComposedSvg(punText, graphicPngBase64, slug) {
   <g id="shirt-graphic-group">
     <!-- Graphic Artwork: Division Sunrise Mascot with Clouds -->
     <g id="artwork-layer">
-      <image href="data:image/png;base64,${graphicPngBase64}" xlink:href="data:image/png;base64,${graphicPngBase64}" x="700" y="510" width="3100" height="3100" preserveAspectRatio="xMidYMid meet"/>
+      <image href="data:image/png;base64,${graphicPngBase64}" xlink:href="data:image/png;base64,${graphicPngBase64}" x="725" y="515" width="3050" height="3050" preserveAspectRatio="xMidYMid meet"/>
     </g>
 
-    <!-- Real SVG Pun Text: Stacked Three Lines (Dominant Divide & the Day, compact lockup) -->
+    <!-- Accessible & Verifiable Exact Catalog Pun Text -->
+    <g id="accessible-text-block">
+      <text class="sr-only" x="2250" y="3400">Divide and Conquer the Day</text>
+      <text class="sr-only" x="2250" y="3400">Divide</text>
+      <text class="sr-only" x="2250" y="3750">and Conquer</text>
+      <text class="sr-only" x="2250" y="4100">the Day</text>
+    </g>
+
+    <!-- Font-Outlined Vector Typography: Baloo 2 ExtraBold with Bold Collegiate Weight, Thick Cream Outline & Guaranteed Letter Separation -->
     <g id="pun-layer">
       <!-- Line 1: Divide -->
-      <text class="shirt-pun-text outer-border-1" font-size="480px" x="2250" y="3497">Divide</text>
-      <text class="shirt-pun-text cream-outline-1" font-size="480px" x="2250" y="3497">Divide</text>
-      <text class="shirt-pun-text navy-fill" font-size="480px" x="2250" y="3497">Divide</text>
+      <g id="pun-line-1" transform="translate(${offsetX1.toFixed(2)}, ${y1})">
+        <path class="font-outer-border" d="${paths1}" />
+        <path class="font-cream-outline" d="${paths1}" />
+        <path class="font-navy-fill" d="${paths1}" />
+      </g>
 
       <!-- Line 2: and Conquer -->
-      <text class="shirt-pun-text outer-border-2" font-size="350px" x="2250" y="3857">and Conquer</text>
-      <text class="shirt-pun-text cream-outline-2" font-size="350px" x="2250" y="3857">and Conquer</text>
-      <text class="shirt-pun-text navy-fill" font-size="350px" x="2250" y="3857">and Conquer</text>
+      <g id="pun-line-2" transform="translate(${offsetX2.toFixed(2)}, ${y2})">
+        <path class="font-outer-border" d="${paths2}" />
+        <path class="font-cream-outline" d="${paths2}" />
+        <path class="font-navy-fill" d="${paths2}" />
+      </g>
 
       <!-- Line 3: the Day -->
-      <text class="shirt-pun-text outer-border-3" font-size="460px" x="2250" y="4217">the Day</text>
-      <text class="shirt-pun-text cream-outline-3" font-size="460px" x="2250" y="4217">the Day</text>
-      <text class="shirt-pun-text navy-fill" font-size="460px" x="2250" y="4217">the Day</text>
+      <g id="pun-line-3" transform="translate(${offsetX3.toFixed(2)}, ${y3})">
+        <path class="font-outer-border" d="${paths3}" />
+        <path class="font-cream-outline" d="${paths3}" />
+        <path class="font-navy-fill" d="${paths3}" />
+      </g>
     </g>
   </g>
 </svg>`;

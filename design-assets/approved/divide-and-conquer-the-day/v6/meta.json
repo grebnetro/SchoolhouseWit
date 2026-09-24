@@ -1,0 +1,23 @@
+{
+  "id": 4,
+  "slug": "divide-and-conquer-the-day",
+  "pun": "Divide and Conquer the Day",
+  "category": "Arithmetic & fractions",
+  "version": 6,
+  "approved_at": "2026-09-24T13:29:48.166Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "77417f688f8c585f206158ce4fc69d0e2b552b6011b7f9f01ab28db9ebd108a1",
+    "final_svg": "2467a8643db9174ce1e6291a2d8fe12070a108949202fd9f36290f8b04ab3086",
+    "master_png": "c0e938bf91f8f3f18036a1552878657cd181d4bb1f39d4e56d15d625effda38c",
+    "web": "0fe49f3f3ce0f9a0dcb4b92619879475a0d462669a66e60d2ec0b0c7be52f218",
+    "web_2x": "b8f9145e494852fda60e86b2d8dbaf2f3752da7066d82ba7f59e69d96930de0f"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "Approved v6: Bold collegiate Baloo 2 ExtraBold lettering (92.3-93.7% line span), thick cream outline (26px), navy fill, unified baselines, identical repeated glyphs, even letter-spacing and 135px consistent word spacing"
+}

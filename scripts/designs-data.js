@@ -294,19 +294,19 @@ const APPROVED_OVERRIDES = {
   },
   "divide-and-conquer-the-day": {
     "status": "approved",
-    "approved_version": 2,
-    "approved_at": "2026-09-23T20:38:03.788Z",
+    "approved_version": 6,
+    "approved_at": "2026-09-24T13:29:48.166Z",
     "assets": {
-      "master_png": "design-assets/approved/divide-and-conquer-the-day/v2/print_master.png",
-      "final_svg": "design-assets/approved/divide-and-conquer-the-day/v2/final.svg",
+      "master_png": "design-assets/approved/divide-and-conquer-the-day/v6/print_master.png",
+      "final_svg": "design-assets/approved/divide-and-conquer-the-day/v6/final.svg",
       "web": "public/designs/divide-and-conquer-the-day.webp",
       "web_2x": "public/designs/divide-and-conquer-the-day@2x.webp"
     },
     "sha256": {
-      "master_png": "44cae4453d4aa9a5fbfb855d9dcf13092ca9e418ca3125ee3e91900fa8ea133a",
-      "final_svg": "cdde6641f122bdcb0697bc575e7c19785be9bda39a4ee63822fad9f3621ba7e4",
-      "web": "d702570ce1217a4f698987ec84e068cab1219176e5c154aff9fe6db614f11b42",
-      "web_2x": "ba43331312418325289570eef1c3000f1d33256e6fa4620f25f76d5136650005"
+      "master_png": "c0e938bf91f8f3f18036a1552878657cd181d4bb1f39d4e56d15d625effda38c",
+      "final_svg": "2467a8643db9174ce1e6291a2d8fe12070a108949202fd9f36290f8b04ab3086",
+      "web": "0fe49f3f3ce0f9a0dcb4b92619879475a0d462669a66e60d2ec0b0c7be52f218",
+      "web_2x": "b8f9145e494852fda60e86b2d8dbaf2f3752da7066d82ba7f59e69d96930de0f"
     },
     "dimensions": {
       "width": 4500,
@@ -314,7 +314,7 @@ const APPROVED_OVERRIDES = {
     },
     "model_or_tool": "Midjourney / FLUX",
     "prompt": null,
-    "notes": "Approved v2: Three-line stacked text lockup with dominant Divide / the Day bookends and tight line spacing"
+    "notes": "Approved v6: Bold collegiate Baloo 2 ExtraBold lettering (92.3-93.7% line span), thick cream outline (26px), navy fill, unified baselines, identical repeated glyphs, even letter-spacing and 135px consistent word spacing"
   }
 };
 

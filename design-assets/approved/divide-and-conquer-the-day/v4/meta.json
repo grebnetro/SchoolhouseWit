@@ -1,0 +1,23 @@
+{
+  "id": 4,
+  "slug": "divide-and-conquer-the-day",
+  "pun": "Divide and Conquer the Day",
+  "category": "Arithmetic & fractions",
+  "version": 4,
+  "approved_at": "2026-09-24T11:35:21.265Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "77417f688f8c585f206158ce4fc69d0e2b552b6011b7f9f01ab28db9ebd108a1",
+    "final_svg": "1a8563ca30ccb332c38d0b8a88eaa1eda9a691246fa6686abf7d7d31d21990d3",
+    "master_png": "6731825f09d3ae353ad17a0114af14cfcdf7272beb7f13e7f84ed69564899368",
+    "web": "a7cfb68c04933c2e69622978fb19660c7b35207cf6946d3dfc06537bc05e42f4",
+    "web_2x": "48c61f2bbfc5feddd5a1cc064c534610809b47a778496ded4e53c27ce047aeb9"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "Approved v4: Titan One font-outlined collegiate bubble lettering with guaranteed non-touching glyphs and clear word spacing"
+}

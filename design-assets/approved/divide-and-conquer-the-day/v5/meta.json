@@ -1,0 +1,23 @@
+{
+  "id": 4,
+  "slug": "divide-and-conquer-the-day",
+  "pun": "Divide and Conquer the Day",
+  "category": "Arithmetic & fractions",
+  "version": 5,
+  "approved_at": "2026-09-24T12:55:51.634Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "77417f688f8c585f206158ce4fc69d0e2b552b6011b7f9f01ab28db9ebd108a1",
+    "final_svg": "8c51d503e09c2c60504e46b5983a6d2cacb53e01fd4ac198be0d699d663d0a2f",
+    "master_png": "8751bc59eb0503212f0aa3f34c5e4c31e65a3a8892cb33e637a5d77916ea3eac",
+    "web": "05d50c9fce6b346bcd9760d2dd7e2bbae9e43e0311f2ec4073ec7ef2e44ff92f",
+    "web_2x": "40d98475f131f3f55b2432aa33bb0efc0ff29f3fa570f0b02a8cef377c7c2150"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "Approved v5: Baloo 2 ExtraBold font-set typography with unified baseline, uniform outline thickness, and identical word spacing"
+}

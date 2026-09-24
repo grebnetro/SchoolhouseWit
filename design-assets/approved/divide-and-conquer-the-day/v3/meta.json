@@ -1,0 +1,23 @@
+{
+  "id": 4,
+  "slug": "divide-and-conquer-the-day",
+  "pun": "Divide and Conquer the Day",
+  "category": "Arithmetic & fractions",
+  "version": 3,
+  "approved_at": "2026-09-24T11:05:40.054Z",
+  "dimensions": {
+    "width": 4500,
+    "height": 5400,
+    "dpi": 300
+  },
+  "sha256": {
+    "original_png": "77417f688f8c585f206158ce4fc69d0e2b552b6011b7f9f01ab28db9ebd108a1",
+    "final_svg": "763720421f33c7693d825fd09c095800d840f2b15107f2c67e1593ddeb41ec38",
+    "master_png": "1fd7e4a92fe0bafd7b52ad29a0d3f0e30436d20b37a05e1a2497480501138142",
+    "web": "dcf7d1396ddfb1d9822fa512e3306621592f587c382aa2de42c151a38997acba",
+    "web_2x": "c311c9abe6ddada7407dacb46b3e1a9615d17466706f733e5c7e61ad64ffd5b1"
+  },
+  "model_or_tool": "Midjourney / FLUX",
+  "prompt": null,
+  "notes": "Approved v3: Clean letter-spacing with zero collisions, clear word gaps, and comfortable line spacing"
+}
